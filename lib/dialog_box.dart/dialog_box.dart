@@ -29,19 +29,28 @@ class AlertDialogs {
     );
   }
 
-  static void showAlertDialog2(BuildContext context) {
+  static void showSignOutDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Alert Dialog 2'),
-          content: const Text('This is the content for Alert Dialog 2.'),
+          title: const Text('Sign Out'),
+          content: const Text('Do you wish to sign out?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Close'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Ok',
+                style: TextStyle(color: Colors.red),
+              ),
             ),
           ],
         );

@@ -1,4 +1,4 @@
-import 'package:e_commerce/provider/dark_them_provider.dart';
+import 'package:e_commerce/provider/dark_theme_provider.dart';
 import 'package:e_commerce/screens/cart_screen.dart';
 import 'package:e_commerce/screens/categories_screen.dart';
 import 'package:e_commerce/screens/home_screen.dart';
@@ -19,7 +19,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   final List screens = [
     const HomeScreen(),
     const UserScreen(),
-    const CategoriesScreen(),
+    CategoriesScreen(),
     const CartScreen()
   ];
 

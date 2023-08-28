@@ -1,5 +1,5 @@
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
-import 'package:e_commerce/provider/dark_them_provider.dart';
+import 'package:e_commerce/provider/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
@@ -135,7 +135,9 @@ class _UserScreenState extends State<UserScreen> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {},
+                onTap: () {
+                  AlertDialogs.showSignOutDialog(context);
+                },
               ),
             ],
           ),

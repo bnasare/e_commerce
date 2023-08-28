@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
-import 'provider/dark_them_provider.dart';
+import 'provider/dark_theme_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
