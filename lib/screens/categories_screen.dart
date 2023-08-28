@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/categories_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,27 +20,27 @@ class CategoriesScreen extends StatelessWidget {
 
   List<Map<String, dynamic>> catInfo = [
     {
-      'imgPath': 'assets/images/cat/fruits.png',
+      'imgPath': 'assets/images/cat/fruits.jpeg',
       'catText': 'Fruits',
     },
     {
-      'imgPath': 'assets/images/cat/veg.png',
+      'imgPath': 'assets/images/cat/veg.jpeg',
       'catText': 'Vegetables',
     },
     {
-      'imgPath': 'assets/images/cat/Spinach.png',
+      'imgPath': 'assets/images/cat/spinach.jpeg',
       'catText': 'Herbs',
     },
     {
-      'imgPath': 'assets/images/cat/nuts.png',
+      'imgPath': 'assets/images/cat/nuts.jpeg',
       'catText': 'Nuts',
     },
     {
-      'imgPath': 'assets/images/cat/spices.png',
+      'imgPath': 'assets/images/cat/spices.jpeg',
       'catText': 'Spices',
     },
     {
-      'imgPath': 'assets/images/cat/grains.png',
+      'imgPath': 'assets/images/cat/grains.jpeg',
       'catText': 'Grains',
     },
   ];
