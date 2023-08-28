@@ -1,10 +1,10 @@
+import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
 import 'provider/dark_them_provider.dart';
-import 'screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<DarkThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
-              home: const HomeScreen(),
+              home: const BottomBarScreen(),
               debugShowCheckedModeBanner: false,
               theme: Styles.themeData(themeProvider.getDarkTheme, context));
         },

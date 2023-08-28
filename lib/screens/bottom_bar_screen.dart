@@ -39,7 +39,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: isDark ? Colors.white : Colors.black26,
           selectedItemColor:
-              isDark ? Colors.lightBlue.withOpacity(0.5) : Colors.black54,
+              isDark ? Colors.lightBlue.withOpacity(0.5) : Colors.black,
           backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
           showSelectedLabels: false,
           showUnselectedLabels: false,
