@@ -31,7 +31,7 @@ class CategoriesWidget extends StatelessWidget {
             width: 2,
           ),
         ),
-        child: Column(
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 8.0),

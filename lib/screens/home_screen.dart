@@ -1,6 +1,6 @@
-import 'package:e_commerce/provider/dark_theme_provider.dart';
+import 'package:card_swiper/card_swiper.dart';
+import 'package:e_commerce/services/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,23 +10,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<String> _offerImages = [
+    'assets/images/offers/camboo_wear.jpg',
+    'assets/images/offers/heels_shop.jpg',
+    'assets/images/offers/kicks_wear.jpg',
+    'assets/images/offers/leather_wear.jpg'
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
-
-    return Scaffold(
-      body: Center(
-        child: SwitchListTile(
-            title: const Text('Theme'),
-            secondary: Icon(themeState.getDarkTheme
-                ? Icons.dark_mode_outlined
-                : Icons.light_mode_outlined),
-            value: themeState.getDarkTheme,
-            onChanged: (bool value) {
-              setState(() {
-                themeState.setDarkTheme = value;
-              });
-            }),
+    final Utils utils = Utils(context);
+    final themeState = utils.getTheme;
+    Size size = utils.getScreenSize;
+    return SafeArea(
+      child: Scaffold(
+        body: SizedBox(
+          height: size.height * 0.30,
+          child: Swiper(
+            itemBuilder: (BuildContext context, int index) {
+              return Image.asset(
+                _offerImages[index],
+                fit: BoxFit.fill,
+              );
+            },
+            autoplay: true,
+            itemCount: _offerImages.length,
+            pagination: const SwiperPagination(
+                alignment: Alignment.bottomCenter,
+                builder: DotSwiperPaginationBuilder(
+                    color: Colors.white, activeColor: Colors.red)),
+            // control: const SwiperControl(color: Colors.black),
+          ),
+        ),
       ),
     );
   }
