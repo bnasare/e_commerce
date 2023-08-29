@@ -33,27 +33,29 @@ class CategoriesWidget extends StatelessWidget {
             width: 2,
           ),
         ),
-        child: Column(children: [
-          // Container for the image
-          Container(
-            height: screenWidth * 0.3,
-            width: screenWidth * 0.3,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    imgPath,
-                  ),
-                  fit: BoxFit.fill),
+        child: ListView(
+          children: [
+            // Container for the image
+            Container(
+              height: screenWidth * 0.3,
+              width: screenWidth * 0.3,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                      imgPath,
+                    ),
+                    fit: BoxFit.fill),
+              ),
             ),
-          ),
-          // Category name
-          TextWidget(
-            text: catText,
-            color: color,
-            textSize: 20,
-            isTitle: true,
-          ),
-        ]),
+            // Category name
+            TextWidget(
+              text: catText,
+              color: color,
+              textSize: 20,
+              isTitle: true,
+            ),
+          ],
+        ),
       ),
     );
   }
