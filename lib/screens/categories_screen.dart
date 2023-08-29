@@ -1,10 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:e_commerce/services/utils.dart';
-import 'package:e_commerce/widgets/categories_widget.dart';
+import 'package:e_commerce/widgets/categories_widget.';
+import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/text_widget.dart';
 
 class CategoriesScreen extends StatelessWidget {
   CategoriesScreen({Key? key}) : super(key: key);
@@ -65,6 +64,7 @@ class CategoriesScreen extends StatelessWidget {
             crossAxisCount: 2,
             childAspectRatio: 240 / 250,
             crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             children: List.generate(6, (index) {
               return CategoriesWidget(
                 catText: catInfo[index]['catText'],
