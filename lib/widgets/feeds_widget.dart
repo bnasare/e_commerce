@@ -69,11 +69,20 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const PriceWidget(),
+                    Flexible(
+                      flex: 4,
+                      child: PriceWidget(
+                        salePrice: 2.99,
+                        price: 5.90,
+                        textPrice: _quantityTextController.text,
+                        isOnSale: true,
+                      ),
+                    ),
                     const SizedBox(
                       width: 4,
                     ),
                     Flexible(
+                      flex: 2,
                       child: Row(
                         children: [
                           FittedBox(
@@ -88,19 +97,30 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                             width: 5,
                           ),
                           Flexible(
-                              child: TextFormField(
-                            controller: _quantityTextController,
-                            key: const ValueKey('10'),
-                            style: TextStyle(color: color, fontSize: 18),
-                            keyboardType: TextInputType.number,
-                            maxLines: 1,
-                            enabled: true,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                RegExp('[0-9.]'),
+                            child: TextFormField(
+                              controller: _quantityTextController,
+                              key: const ValueKey('10 \$'),
+                              style: TextStyle(color: color, fontSize: 18),
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                              decoration: const InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(),
+                                ),
                               ),
-                            ],
-                          ))
+                              textAlign: TextAlign.center,
+                              cursorColor: Colors.green,
+                              enabled: true,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[0-9.,]')),
+                              ],
+                              onChanged: (value) {
+                                setState(() {});
+                              },
+                              onSaved: (value) {},
+                            ),
+                          ),
                         ],
                       ),
                     )
