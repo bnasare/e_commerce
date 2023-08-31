@@ -1,4 +1,5 @@
 import 'package:e_commerce/services/utils.dart';
+import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                   Column(
                     children: [
                       TextWidget(
-                        text: '1KG',
+                        text: '1PC',
                         color: color,
                         textSize: 22,
                         isTitle: true,
@@ -62,16 +63,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                               color: color,
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              print('print heart button is pressed');
-                            },
-                            child: Icon(
-                              IconlyLight.heart,
-                              size: 22,
-                              color: color,
-                            ),
-                          ),
+                          const HeartButton()
                         ],
                       ),
                     ],
