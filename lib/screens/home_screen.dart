@@ -1,4 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:e_commerce/inner_screens/on_sale_screen.dart';
+import 'package:e_commerce/services/global_methods.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/feeds_widget.dart';
 import 'package:e_commerce/widgets/on_sale_widget.dart';
@@ -52,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 6),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  GlobalMethods.navigateTo(
+                      context: context, routeName: OnSaleScreen.routeName);
+                },
                 child: TextWidget(
                   text: 'View All',
                   color: Colors.blue,
@@ -69,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         TextWidget(
-                          text: 'ON SALE',
+                          text: 'PROMO',
                           color: Colors.red,
                           textSize: 22,
                           isTitle: true,
@@ -125,9 +130,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: 2,
                 padding: EdgeInsets.zero,
                 childAspectRatio: size.width / (size.height * 0.59),
-                children: List.generate(4, (index) {
-                  return const FeedsWidget();
-                }),
+                children: List.generate(
+                  4,
+                  (index) {
+                    return const FeedsWidget();
+                  },
+                ),
               )
             ],
           ),
