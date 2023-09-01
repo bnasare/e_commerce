@@ -13,6 +13,7 @@ class OnSaleScreen extends StatefulWidget {
 }
 
 class _OnSaleScreenState extends State<OnSaleScreen> {
+  bool isEmpty = true;
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
@@ -40,17 +41,39 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
           isTitle: true,
         ),
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: EdgeInsets.zero,
-        childAspectRatio: size.width / (size.height * 0.49),
-        children: List.generate(
-          12,
-          (index) {
-            return const OnSaleWidget();
-          },
-        ),
-      ),
+      body: isEmpty
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Image.asset('assets/images/sale/empty_box.jpg'),
+                    ),
+                    Text(
+                      'No products on sale yet! \nStay tuned',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: color,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : GridView.count(
+              crossAxisCount: 2,
+              padding: EdgeInsets.zero,
+              childAspectRatio: size.width / (size.height * 0.49),
+              children: List.generate(
+                12,
+                (index) {
+                  return const OnSaleWidget();
+                },
+              ),
+            ),
     );
   }
 }
