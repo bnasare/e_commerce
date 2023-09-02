@@ -13,7 +13,7 @@ class OnSaleScreen extends StatefulWidget {
 }
 
 class _OnSaleScreenState extends State<OnSaleScreen> {
-  bool isEmpty = true;
+  bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
@@ -47,12 +47,13 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
+                    SizedBox(height: size.height * 0.08),
                     Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Image.asset('assets/images/sale/empty_box.jpg'),
+                      padding: const EdgeInsets.all(5.0),
+                      child: Image.asset('assets/images/sale/box.png'),
                     ),
                     Text(
-                      'No products on sale yet! \nStay tuned',
+                      'No products on sale yet! \nStay tuned.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 30,
