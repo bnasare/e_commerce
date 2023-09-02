@@ -40,6 +40,7 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
           textSize: 24.0,
           isTitle: true,
         ),
+        centerTitle: true,
       ),
       body: isEmpty
           ? Center(
@@ -67,7 +68,7 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
           : GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
-              childAspectRatio: size.width / (size.height * 0.49),
+              childAspectRatio: size.width / (size.height * 0.54),
               children: List.generate(
                 12,
                 (index) {

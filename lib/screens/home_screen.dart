@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(width: 8),
                   Flexible(
                     child: SizedBox(
-                      height: size.height * 0.24,
+                      height: size.height * 0.27,
                       child: ListView.builder(
                         itemCount: 10,
                         scrollDirection: Axis.horizontal,
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 padding: EdgeInsets.zero,
-                childAspectRatio: size.width / (size.height * 0.59),
+                childAspectRatio: size.width / (size.height * 0.79),
                 children: List.generate(
                   4,
                   (index) {

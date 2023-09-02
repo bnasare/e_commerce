@@ -113,7 +113,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                               enabled: true,
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                    RegExp('[0-9.,]')),
+                                    RegExp('[0-9.]')),
                               ],
                               onChanged: (value) {
                                 setState(() {});
