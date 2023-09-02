@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/services/global_methods.dart';
 import 'package:e_commerce/services/utils.dart';
@@ -114,7 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Spacer(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GlobalMethods.navigateTo(
+                            context: context, routeName: FeedsScreen.routeName);
+                      },
                       child: TextWidget(
                         text: 'Browse all',
                         color: Colors.blue,

@@ -42,6 +42,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     width: size.width * 0.22,
                     boxFit: BoxFit.fill,
                   ),
+                  const SizedBox(width: 10),
                   Column(
                     children: [
                       TextWidget(
