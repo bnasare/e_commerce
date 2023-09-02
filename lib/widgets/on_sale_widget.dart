@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/text_widget.dart';

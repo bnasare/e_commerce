@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
