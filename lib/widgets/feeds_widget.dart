@@ -15,16 +15,16 @@ class FeedsWidget extends StatefulWidget {
 }
 
 class _FeedsWidgetState extends State<FeedsWidget> {
-  final _quantityTextController = TextEditingController();
+  final quantityTextController = TextEditingController();
   @override
   void initState() {
-    _quantityTextController.text = '1';
+    quantityTextController.text = '1';
     super.initState();
   }
 
   @override
   void dispose() {
-    _quantityTextController.dispose();
+    quantityTextController.dispose();
     super.dispose();
   }
 
@@ -74,7 +74,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                       child: PriceWidget(
                         salePrice: 2.99,
                         price: 5.90,
-                        textPrice: _quantityTextController.text,
+                        textPrice: quantityTextController.text,
                         isOnSale: true,
                       ),
                     ),
@@ -98,7 +98,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                           ),
                           Flexible(
                             child: TextFormField(
-                              controller: _quantityTextController,
+                              controller: quantityTextController,
                               key: const ValueKey('10 \$'),
                               style: TextStyle(color: color, fontSize: 18),
                               keyboardType: TextInputType.number,
