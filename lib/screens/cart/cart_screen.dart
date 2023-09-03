@@ -19,7 +19,8 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor:
+            Theme.of(context).colorScheme.background.withOpacity(0.3),
         title: TextWidget(
           text: 'Cart (2)',
           color: color,

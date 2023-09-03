@@ -26,7 +26,6 @@ class _FeedsScreenState extends State<FeedsScreen> {
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
-    Size size = Utils(context).getScreenSize;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
