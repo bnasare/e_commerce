@@ -70,7 +70,7 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
           : GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
-              childAspectRatio: size.width / (size.height * 0.54),
+              childAspectRatio: 1.1,
               children: List.generate(
                 12,
                 (index) {

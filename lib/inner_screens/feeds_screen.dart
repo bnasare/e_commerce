@@ -94,7 +94,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
             crossAxisCount: 2,
             padding: EdgeInsets.zero,
             // crossAxisSpacing: 10,
-            childAspectRatio: size.width / (size.height * 0.79),
+            childAspectRatio: 0.7,
             children: List.generate(10, (index) {
               return const FeedsWidget();
             }),

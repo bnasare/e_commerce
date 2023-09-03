@@ -1,5 +1,5 @@
 import 'package:e_commerce/provider/dark_theme_provider.dart';
-import 'package:e_commerce/screens/cart_screen.dart';
+import 'package:e_commerce/screens/cart/cart_screen.dart';
 import 'package:e_commerce/screens/categories_screen.dart';
 import 'package:e_commerce/screens/home_screen.dart';
 import 'package:e_commerce/screens/user_screen.dart';
@@ -15,7 +15,8 @@ class BottomBarScreen extends StatefulWidget {
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
-  int selectedIndex = 0;
+  int selectedIndex = 2;
+
   final List screens = [
     const HomeScreen(),
     CategoriesScreen(),

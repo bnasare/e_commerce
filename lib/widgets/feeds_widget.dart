@@ -45,7 +45,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               FancyShimmerImage(
                 imageUrl:
                     'https://static.wixstatic.com/media/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg/v1/fill/w_640,h_560,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg',
-                height: size.width * 0.27,
+                height: size.height * 0.15,
                 width: double.infinity,
                 boxFit: BoxFit.fill,
               ),
