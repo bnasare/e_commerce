@@ -1,7 +1,9 @@
+import 'package:e_commerce/screens/wishlist/wishlist_widget.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class WishListScreen extends StatefulWidget {
   static const routeName = "/WishListScreen";
@@ -18,26 +20,47 @@ class _WishListScreenState extends State<WishListScreen> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor:
-              Theme.of(context).colorScheme.background.withOpacity(0.3),
-          title: TextWidget(
-            text: 'WishList (2)',
+      appBar: AppBar(
+        leading: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () {
+            Navigator.canPop(context) ? Navigator.pop(context) : null;
+          },
+          child: Icon(
+            IconlyLight.arrowLeft2,
             color: color,
-            textSize: 22,
-            isTitle: true,
+            size: 24,
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                IconlyBroken.delete,
-                color: color,
-              ),
-            ),
-          ],
         ),
-        body: Container());
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor:
+            Theme.of(context).colorScheme.background.withOpacity(0.3),
+        title: TextWidget(
+          text: 'WishList (2)',
+          color: color,
+          textSize: 22,
+          isTitle: true,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              IconlyBroken.delete,
+              color: color,
+            ),
+          ),
+        ],
+      ),
+      body: MasonryGridView.count(
+        crossAxisCount: 2,
+        // mainAxisSpacing: 16,
+        // crossAxisSpacing: 20,
+        itemBuilder: (context, index) {
+          return const WishlistWidget();
+        },
+      ),
+    );
   }
 }
