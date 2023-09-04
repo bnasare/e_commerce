@@ -31,7 +31,7 @@ class _CartScreenState extends State<CartScreen> {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              IconlyLight.delete,
+              IconlyBroken.delete,
               color: color,
             ),
           ),
@@ -62,7 +62,7 @@ class _CartScreenState extends State<CartScreen> {
                   const Spacer(),
                   FittedBox(
                     child: TextWidget(
-                      text: 'Total: \$5.6',
+                      text: 'Total: \$0.746',
                       color: color,
                       textSize: 18,
                       isTitle: true,

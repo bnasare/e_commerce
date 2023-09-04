@@ -1,3 +1,5 @@
+import 'package:e_commerce/inner_screens/product_details.dart';
+import 'package:e_commerce/services/global_methods.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/price_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -38,7 +40,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
         borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).cardColor,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            GlobalMethods.navigateTo(
+                context: context, routeName: ProductDetailsScreen.routeName);
+          },
           borderRadius: BorderRadius.circular(12),
           child: Column(
             children: [
@@ -79,10 +84,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                       ),
                     ),
                     const SizedBox(
-                      width: 4,
+                      width: 3,
                     ),
                     Flexible(
-                      flex: 2,
+                      flex: 3,
                       child: Row(
                         children: [
                           FittedBox(

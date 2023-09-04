@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../inner_screens/product_details.dart';
+import '../../services/global_methods.dart';
+
 class CardWidget extends StatefulWidget {
   const CardWidget({super.key});
 
@@ -32,7 +35,10 @@ class _CardWidgetState extends State<CardWidget> {
     Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        GlobalMethods.navigateTo(
+            context: context, routeName: ProductDetailsScreen.routeName);
+      },
       child: Row(
         children: [
           Expanded(
@@ -46,8 +52,8 @@ class _CardWidgetState extends State<CardWidget> {
                 child: Row(
                   children: [
                     Container(
-                      height: size.height * 0.1,
-                      width: size.width * 0.27,
+                      height: size.height * 0.12,
+                      width: size.width * 0.29,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15)),
                       child: FancyShimmerImage(
@@ -59,11 +65,14 @@ class _CardWidgetState extends State<CardWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextWidget(
-                          text: 'Title',
-                          color: color,
-                          textSize: 20,
-                          isTitle: true,
+                        Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: TextWidget(
+                            text: 'Title',
+                            color: color,
+                            textSize: 20,
+                            isTitle: true,
+                          ),
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
@@ -97,8 +106,11 @@ class _CardWidgetState extends State<CardWidget> {
                                   keyboardType: TextInputType.number,
                                   maxLines: 1,
                                   decoration: const InputDecoration(
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide())),
+                                    focusedBorder: UnderlineInputBorder(),
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  cursorColor: Colors.green,
+                                  enabled: true,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
                                         RegExp('[0-9]'))

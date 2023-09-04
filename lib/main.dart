@@ -1,5 +1,6 @@
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
+import 'package:e_commerce/inner_screens/product_details.dart';
 import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,7 +54,9 @@ class _MyAppState extends State<MyApp> {
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             routes: {
               OnSaleScreen.routeName: (context) => const OnSaleScreen(),
-              FeedsScreen.routeName: (context) => const FeedsScreen()
+              FeedsScreen.routeName: (context) => const FeedsScreen(),
+              ProductDetailsScreen.routeName: (context) =>
+                  const ProductDetailsScreen()
             },
           );
         },
