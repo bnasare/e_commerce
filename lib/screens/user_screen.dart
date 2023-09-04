@@ -1,5 +1,7 @@
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/provider/dark_theme_provider.dart';
+import 'package:e_commerce/screens/wishlist/wishlist_screen.dart';
+import 'package:e_commerce/services/global_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
@@ -86,7 +88,10 @@ class _UserScreenState extends State<UserScreen> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {},
+                onTap: () {
+                  GlobalMethods.navigateTo(
+                      context: context, routeName: WishListScreen.routeName);
+                },
               ),
               const SizedBox(height: 20),
               ListTile(

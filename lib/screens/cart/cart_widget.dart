@@ -9,14 +9,14 @@ import 'package:flutter/services.dart';
 import '../../inner_screens/product_details.dart';
 import '../../services/global_methods.dart';
 
-class CardWidget extends StatefulWidget {
-  const CardWidget({super.key});
+class CartWidget extends StatefulWidget {
+  const CartWidget({super.key});
 
   @override
-  State<CardWidget> createState() => _CardWidgetState();
+  State<CartWidget> createState() => _CartWidgetState();
 }
 
-class _CardWidgetState extends State<CardWidget> {
+class _CartWidgetState extends State<CartWidget> {
   final quantityTextController = TextEditingController();
   @override
   void initState() {

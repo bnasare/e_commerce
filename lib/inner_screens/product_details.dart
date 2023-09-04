@@ -9,7 +9,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../services/utils.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  static const routeName = "/ProductDetailsScreenScreen";
+  static const routeName = "/ProductDetailsScreen";
 
   const ProductDetailsScreen({super.key});
 
@@ -254,7 +254,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       isTitle: true,
                                     ),
                                     TextWidget(
-                                      text: '${quantityTextController}PC',
+                                      text: '${quantityTextController.text}PC',
                                       color: color,
                                       textSize: 16,
                                     ),
