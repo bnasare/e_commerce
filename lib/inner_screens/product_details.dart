@@ -146,7 +146,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             borderRadius: BorderRadius.circular(12),
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12),
-                              onTap: () {},
+                              onTap: () {
+                                if (quantityTextController.text == '1') {
+                                  return;
+                                } else {
+                                  setState(() {
+                                    quantityTextController.text = (int.parse(
+                                                quantityTextController.text) -
+                                            1)
+                                        .toString();
+                                  });
+                                }
+                              },
                               child: const Padding(
                                 padding: EdgeInsets.all(6.0),
                                 child: Icon(CupertinoIcons.minus,
@@ -190,7 +201,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           borderRadius: BorderRadius.circular(12),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12),
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                quantityTextController.text =
+                                    (int.parse(quantityTextController.text) + 1)
+                                        .toString();
+                              });
+                            },
                             child: const Padding(
                               padding: EdgeInsets.all(6.0),
                               child: Icon(CupertinoIcons.add,
@@ -237,7 +254,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       isTitle: true,
                                     ),
                                     TextWidget(
-                                      text: 'PC',
+                                      text: '${quantityTextController}PC',
                                       color: color,
                                       textSize: 16,
                                     ),

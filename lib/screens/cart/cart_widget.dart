@@ -89,7 +89,21 @@ class _CardWidgetState extends State<CardWidget> {
                                     borderRadius: BorderRadius.circular(12),
                                     child: InkWell(
                                       borderRadius: BorderRadius.circular(12),
-                                      onTap: () {},
+                                      onTap: () {
+                                        if (quantityTextController.text ==
+                                            '1') {
+                                          return;
+                                        } else {
+                                          setState(() {
+                                            quantityTextController
+                                                .text = (int.parse(
+                                                        quantityTextController
+                                                            .text) -
+                                                    1)
+                                                .toString();
+                                          });
+                                        }
+                                      },
                                       child: const Padding(
                                         padding: EdgeInsets.all(6.0),
                                         child: Icon(CupertinoIcons.minus,
@@ -116,13 +130,15 @@ class _CardWidgetState extends State<CardWidget> {
                                         RegExp('[0-9]'))
                                   ],
                                   onChanged: (value) {
-                                    setState(() {
-                                      if (value.isEmpty) {
-                                        quantityTextController.text = '1';
-                                      } else {
-                                        return;
-                                      }
-                                    });
+                                    setState(
+                                      () {
+                                        if (value.isEmpty) {
+                                          quantityTextController.text = '1';
+                                        } else {
+                                          return;
+                                        }
+                                      },
+                                    );
                                   },
                                 ),
                               ),
@@ -133,7 +149,15 @@ class _CardWidgetState extends State<CardWidget> {
                                   borderRadius: BorderRadius.circular(12),
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(12),
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        quantityTextController.text =
+                                            (int.parse(quantityTextController
+                                                        .text) +
+                                                    1)
+                                                .toString();
+                                      });
+                                    },
                                     child: const Padding(
                                       padding: EdgeInsets.all(6.0),
                                       child: Icon(CupertinoIcons.add,
