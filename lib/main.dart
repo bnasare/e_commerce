@@ -2,6 +2,7 @@ import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/inner_screens/product_details.dart';
 import 'package:e_commerce/screens/bottom_bar_screen.dart';
+import 'package:e_commerce/screens/orders/orders_screen.dart';
 import 'package:e_commerce/screens/wishlist/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,6 +60,7 @@ class _MyAppState extends State<MyApp> {
               ProductDetailsScreen.routeName: (context) =>
                   const ProductDetailsScreen(),
               WishListScreen.routeName: (context) => const WishListScreen(),
+              OrdersScreen.routeName: (context) => const OrdersScreen(),
             },
           );
         },
