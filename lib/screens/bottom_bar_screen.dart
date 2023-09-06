@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart' as badge;
 import 'package:e_commerce/provider/dark_theme_provider.dart';
 import 'package:e_commerce/screens/cart/cart_screen.dart';
 import 'package:e_commerce/screens/categories_screen.dart';
@@ -6,6 +7,8 @@ import 'package:e_commerce/screens/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/text_widget.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -38,34 +41,48 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     return Scaffold(
       body: screens[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: isDark ? Colors.white : Colors.black26,
-          selectedItemColor:
-              isDark ? Colors.lightBlue.withOpacity(0.8) : Colors.black,
-          backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          type: BottomNavigationBarType.shifting,
-          currentIndex: selectedIndex,
-          onTap: selectedScreen,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(
-                    selectedIndex == 0 ? IconlyBold.home : IconlyLight.home),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(selectedIndex == 0
-                    ? IconlyBold.category
-                    : IconlyLight.category),
-                label: 'Offers'),
-            BottomNavigationBarItem(
-                icon:
-                    Icon(selectedIndex == 0 ? IconlyBold.buy : IconlyLight.buy),
-                label: 'Cart'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                    selectedIndex == 0 ? IconlyBold.user3 : IconlyLight.user3),
-                label: 'User'),
-          ]),
+        unselectedItemColor: isDark ? Colors.white : Colors.black26,
+        selectedItemColor:
+            isDark ? Colors.lightBlue.withOpacity(0.8) : Colors.black,
+        backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.shifting,
+        currentIndex: selectedIndex,
+        onTap: selectedScreen,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon:
+                  Icon(selectedIndex == 0 ? IconlyBold.home : IconlyLight.home),
+              label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(selectedIndex == 0
+                  ? IconlyBold.category
+                  : IconlyLight.category),
+              label: 'Offers'),
+          BottomNavigationBarItem(
+            icon: badge.Badge(
+              badgeAnimation: const badge.BadgeAnimation.slide(),
+              badgeStyle: badge.BadgeStyle(
+                shape: badge.BadgeShape.circle,
+                badgeColor: Colors.blue,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              position: badge.BadgePosition.topEnd(top: -7, end: -7),
+              badgeContent: FittedBox(
+                  child:
+                      TextWidget(text: '1', color: Colors.white, textSize: 15)),
+              child:
+                  Icon(selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
+            ),
+            label: "Cart",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                  selectedIndex == 0 ? IconlyBold.user3 : IconlyLight.user3),
+              label: 'User'),
+        ],
+      ),
     );
   }
 }
