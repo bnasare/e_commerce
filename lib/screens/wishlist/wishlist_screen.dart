@@ -1,3 +1,4 @@
+import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/screens/wishlist/wishlist_widget.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -45,7 +46,13 @@ class _WishListScreenState extends State<WishListScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              AlertDialogs.warningDialog(
+                  title: 'Empty your wishlist?',
+                  subtitle: 'Are you sure?',
+                  fct: () {},
+                  context: context);
+            },
             icon: Icon(
               IconlyBroken.delete,
               color: color,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 
 class AlertDialogs {
   static void showAddressDialog(
@@ -29,27 +30,45 @@ class AlertDialogs {
     );
   }
 
-  static void showSignOutDialog(BuildContext context) {
+  static void warningDialog({
+    required String title,
+    required String subtitle,
+    required Function fct,
+    required BuildContext context,
+  }) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Sign Out'),
-          content: const Text('Do you wish to sign out?'),
+          title: Row(
+            children: [
+              const Icon(
+                IconlyLight.dangerTriangle,
+                color: Colors.red,
+                size: 20,
+              ),
+              const SizedBox(width: 3),
+              Text(title),
+            ],
+          ),
+          content: Text(subtitle),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                fct();
               },
               child: const Text(
-                'Ok',
-                style: TextStyle(color: Colors.red),
+                'OK',
+                style: TextStyle(color: Colors.red, fontSize: 16),
               ),
             ),
           ],

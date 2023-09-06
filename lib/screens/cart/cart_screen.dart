@@ -1,3 +1,4 @@
+import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/screens/cart/cart_widget.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -29,7 +30,13 @@ class _CartScreenState extends State<CartScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              AlertDialogs.warningDialog(
+                  title: 'Empty your cart?',
+                  subtitle: 'Are you sure?',
+                  fct: () {},
+                  context: context);
+            },
             icon: Icon(
               IconlyBroken.delete,
               color: color,

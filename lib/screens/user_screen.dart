@@ -141,7 +141,12 @@ class _UserScreenState extends State<UserScreen> {
                 ),
                 trailing: const Icon(IconlyLight.arrowRight2),
                 onTap: () {
-                  AlertDialogs.showSignOutDialog(context);
+                  AlertDialogs.warningDialog(
+                    title: 'Sign out',
+                    subtitle: 'Do you wish to sign out?',
+                    fct: () {},
+                    context: context,
+                  );
                 },
               ),
             ],
