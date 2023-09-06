@@ -62,7 +62,8 @@ class _MyAppState extends State<MyApp> {
                   const ProductDetailsScreen(),
               WishListScreen.routeName: (context) => const WishListScreen(),
               OrdersScreen.routeName: (context) => const OrdersScreen(),
-              ViewedRecentlyScreen.routeName: (context) => const OrdersScreen(),
+              ViewedRecentlyScreen.routeName: (context) =>
+                  const ViewedRecentlyScreen(),
             },
           );
         },

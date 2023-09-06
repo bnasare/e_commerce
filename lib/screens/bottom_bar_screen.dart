@@ -15,7 +15,7 @@ class BottomBarScreen extends StatefulWidget {
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
-  int selectedIndex = 3;
+  int selectedIndex = 2;
 
   final List screens = [
     const HomeScreen(),

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../../widgets/empty_screen.dart';
+
 class WishListScreen extends StatefulWidget {
   static const routeName = "/WishListScreen";
 
@@ -16,58 +18,65 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
+  bool isEmpty = true;
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
-    return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            Navigator.canPop(context) ? Navigator.pop(context) : null;
-          },
-          child: Icon(
-            IconlyLight.arrowLeft2,
-            color: color,
-            size: 24,
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor:
-            Theme.of(context).colorScheme.background.withOpacity(0.3),
-        title: TextWidget(
-          text: 'WishList (2)',
-          color: color,
-          textSize: 22,
-          isTitle: true,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              AlertDialogs.warningDialog(
-                  title: 'Empty your wishlist?',
-                  subtitle: 'Are you sure?',
-                  fct: () {},
-                  context: context);
-            },
-            icon: Icon(
-              IconlyBroken.delete,
-              color: color,
+    return isEmpty
+        ? const EmptyScreen(
+            imagePath: 'assets/images/sale/viewed.png',
+            title: 'Oops!',
+            subtitle: "Your Wishlist is Currently Empty.",
+            buttonText: "Let's Add Some")
+        : Scaffold(
+            appBar: AppBar(
+              leading: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Navigator.canPop(context) ? Navigator.pop(context) : null;
+                },
+                child: Icon(
+                  IconlyLight.arrowLeft2,
+                  color: color,
+                  size: 24,
+                ),
+              ),
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              elevation: 0,
+              backgroundColor:
+                  Theme.of(context).colorScheme.background.withOpacity(0.3),
+              title: TextWidget(
+                text: 'WishList (2)',
+                color: color,
+                textSize: 22,
+                isTitle: true,
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    AlertDialogs.warningDialog(
+                        title: 'Empty your wishlist?',
+                        subtitle: 'Are you sure?',
+                        fct: () {},
+                        context: context);
+                  },
+                  icon: Icon(
+                    IconlyBroken.delete,
+                    color: color,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-      body: MasonryGridView.count(
-        crossAxisCount: 2,
-        // mainAxisSpacing: 16,
-        // crossAxisSpacing: 20,
-        itemBuilder: (context, index) {
-          return const WishlistWidget();
-        },
-      ),
-    );
+            body: MasonryGridView.count(
+              crossAxisCount: 2,
+              // mainAxisSpacing: 16,
+              // crossAxisSpacing: 20,
+              itemBuilder: (context, index) {
+                return const WishlistWidget();
+              },
+            ),
+          );
   }
 }
