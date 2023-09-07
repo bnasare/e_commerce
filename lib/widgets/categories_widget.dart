@@ -1,6 +1,6 @@
+import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:e_commerce/widgets/text_widget.dart';
 
 import '../provider/dark_theme_provider.dart';
 
@@ -16,7 +16,7 @@ class CategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-    double _screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     return InkWell(
       onTap: () {
@@ -36,19 +36,18 @@ class CategoriesWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
-                height: _screenWidth * 0.35,
-                width: _screenWidth * 0.35,
+                height: screenWidth * 0.35,
+                width: screenWidth * 0.35,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  image: DecorationImage(
-                    image: AssetImage(imgPath),
-                    fit: BoxFit.fill,
-                    )
-                ),
+                    borderRadius: BorderRadius.circular(16),
+                    image: DecorationImage(
+                      image: AssetImage(imgPath),
+                      fit: BoxFit.fill,
+                    )),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top:10.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: TextWidget(
                 text: catText,
                 color: color,

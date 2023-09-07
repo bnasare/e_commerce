@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:card_swiper/card_swiper.dart';
+import 'package:e_commerce/consts/image_consts.dart';
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/services/global_methods.dart';
@@ -19,13 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> _offerImages = [
-    'assets/images/offers/camboo_wear.jpg',
-    'assets/images/offers/heels_shop.jpg',
-    'assets/images/offers/kicks_wear.jpg',
-    'assets/images/offers/leather_wear.jpg'
-  ];
-
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
@@ -42,12 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Swiper(
                   itemBuilder: (BuildContext context, int index) {
                     return Image.asset(
-                      _offerImages[index],
+                      ImageConsts.offerImages[index],
                       fit: BoxFit.fill,
                     );
                   },
                   autoplay: true,
-                  itemCount: _offerImages.length,
+                  itemCount: ImageConsts.offerImages.length,
                   pagination: const SwiperPagination(
                       alignment: Alignment.bottomCenter,
                       builder: DotSwiperPaginationBuilder(

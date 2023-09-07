@@ -1,6 +1,9 @@
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/inner_screens/product_details.dart';
+import 'package:e_commerce/screens/auth/forget_password.dart';
+import 'package:e_commerce/screens/auth/login_screen.dart';
+import 'package:e_commerce/screens/auth/signup_screen.dart';
 import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:e_commerce/screens/orders/orders_screen.dart';
 import 'package:e_commerce/screens/viewed_recently/viewed_recently_screen.dart';
@@ -64,6 +67,10 @@ class _MyAppState extends State<MyApp> {
               OrdersScreen.routeName: (context) => const OrdersScreen(),
               ViewedRecentlyScreen.routeName: (context) =>
                   const ViewedRecentlyScreen(),
+              SignUpScreen.routeName: (context) => const SignUpScreen(),
+              LoginScreen.routeName: (context) => const LoginScreen(),
+              ForgetPasswordScreen.routeName: (context) =>
+                  const ForgetPasswordScreen(),
             },
           );
         },

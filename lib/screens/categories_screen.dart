@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:e_commerce/services/utils.dart';
-import 'package:e_commerce/widgets/categories_widget.';
+import 'package:e_commerce/widgets/categories_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
