@@ -1,8 +1,10 @@
-import 'package:e_commerce/consts/consts.dart';
-import 'package:e_commerce/widgets/feeds_widget.dart';
+import 'package:e_commerce/widgets/feeds_items_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
+import '../models/products_models.dart';
+import '../providers/product_provider.dart';
 import '../services/utils.dart';
 import '../widgets/text_widget.dart';
 
@@ -27,6 +29,9 @@ class _FeedsScreenState extends State<FeedsScreen> {
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
+    final productProvider = Provider.of<ProductProvider>(context);
+    List<ProductModel> allProducts = productProvider.getProducts;
+
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -95,10 +100,10 @@ class _FeedsScreenState extends State<FeedsScreen> {
             padding: EdgeInsets.zero,
             // crossAxisSpacing: 10,
             childAspectRatio: 0.7,
-            children: List.generate(Consts.productsList.length, (index) {
+            children: List.generate(allProducts.length, (index) {
               return FeedsWidget(
-                imageUrl: Consts.productsList[index].imageUrl,
-                title: Consts.productsList[index].title,
+                imageUrl: allProducts[index].imageUrl,
+                title: allProducts[index].title,
               );
             }),
           ),

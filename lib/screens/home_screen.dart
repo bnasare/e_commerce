@@ -6,11 +6,15 @@ import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/services/global_methods.dart';
 import 'package:e_commerce/services/utils.dart';
-import 'package:e_commerce/widgets/feeds_widget.dart';
+import 'package:e_commerce/widgets/feeds_items_widget.dart';
 import 'package:e_commerce/widgets/on_sale_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
+
+import '../models/products_models.dart';
+import '../providers/product_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,6 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
     Size size = utils.getScreenSize;
+    final productProvider = Provider.of<ProductProvider>(context);
+    List<ProductModel> allProducts = productProvider.getProducts;
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -131,13 +138,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.zero,
                 childAspectRatio: 0.7,
                 children: List.generate(
-                  Consts.productsList.length < 4
-                      ? Consts.productsList.length
-                      : 4,
+                  allProducts.length < 4 ? allProducts.length : 4,
                   (index) {
                     return FeedsWidget(
-                      imageUrl: Consts.productsList[index].imageUrl,
-                      title: Consts.productsList[index].title,
+                      imageUrl: allProducts[index].imageUrl,
+                      title: allProducts[index].title,
                     );
                   },
                 ),

@@ -1,6 +1,7 @@
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/inner_screens/product_details.dart';
+import 'package:e_commerce/providers/product_provider.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/login_screen.dart';
 import 'package:e_commerce/screens/auth/signup_screen.dart';
@@ -50,6 +51,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) {
           return themeChangeProvider;
+        }),
+        ChangeNotifierProvider(create: (_) {
+          return ProductProvider();
         })
       ],
       child: Consumer<DarkThemeProvider>(

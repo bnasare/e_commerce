@@ -37,6 +37,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
