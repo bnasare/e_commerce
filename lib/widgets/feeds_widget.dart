@@ -10,7 +10,10 @@ import 'package:flutter/services.dart';
 import '../services/utils.dart';
 
 class FeedsWidget extends StatefulWidget {
-  const FeedsWidget({Key? key}) : super(key: key);
+  const FeedsWidget({Key? key, required this.imageUrl, required this.title})
+      : super(key: key);
+
+  final String imageUrl, title;
 
   @override
   State<FeedsWidget> createState() => _FeedsWidgetState();
@@ -48,24 +51,29 @@ class _FeedsWidgetState extends State<FeedsWidget> {
           child: Column(
             children: [
               FancyShimmerImage(
-                imageUrl:
-                    'https://static.wixstatic.com/media/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg/v1/fill/w_640,h_560,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg',
-                height: size.height * 0.15,
-                width: double.infinity,
-                boxFit: BoxFit.fill,
-              ),
+                  imageUrl: widget.imageUrl,
+                  height: size.height * 0.15,
+                  width: double.infinity,
+                  boxFit: BoxFit.cover),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextWidget(
-                      text: 'Title',
-                      color: color,
-                      textSize: 20,
-                      isTitle: true,
+                    Flexible(
+                      flex: 3,
+                      child: TextWidget(
+                        text: widget.title,
+                        maxLines: 1,
+                        color: color,
+                        textSize: 20,
+                        isTitle: true,
+                      ),
                     ),
-                    const HeartButton(),
+                    const Flexible(
+                      flex: 1,
+                      child: HeartButton(),
+                    ),
                   ],
                 ),
               ),

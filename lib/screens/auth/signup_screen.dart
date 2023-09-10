@@ -1,5 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:e_commerce/consts/image_consts.dart';
+import 'package:e_commerce/consts/consts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -64,12 +64,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             itemBuilder: (BuildContext context, int index) {
               return Image.asset(
-                ImageConsts.authImagesPaths[index],
+                Consts.authImagesPaths[index],
                 fit: BoxFit.cover,
               );
             },
             autoplay: true,
-            itemCount: ImageConsts.authImagesPaths.length,
+            itemCount: Consts.authImagesPaths.length,
 
             // control: const SwiperControl(),
           ),

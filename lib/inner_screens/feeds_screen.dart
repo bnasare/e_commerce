@@ -1,3 +1,4 @@
+import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/widgets/feeds_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -94,8 +95,11 @@ class _FeedsScreenState extends State<FeedsScreen> {
             padding: EdgeInsets.zero,
             // crossAxisSpacing: 10,
             childAspectRatio: 0.7,
-            children: List.generate(10, (index) {
-              return const FeedsWidget();
+            children: List.generate(Consts.productsList.length, (index) {
+              return FeedsWidget(
+                imageUrl: Consts.productsList[index].imageUrl,
+                title: Consts.productsList[index].title,
+              );
             }),
           ),
         ]),

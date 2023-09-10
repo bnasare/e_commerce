@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:card_swiper/card_swiper.dart';
-import 'package:e_commerce/consts/image_consts.dart';
+import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/services/global_methods.dart';
@@ -36,12 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Swiper(
                   itemBuilder: (BuildContext context, int index) {
                     return Image.asset(
-                      ImageConsts.offerImages[index],
+                      Consts.offerImages[index],
                       fit: BoxFit.fill,
                     );
                   },
                   autoplay: true,
-                  itemCount: ImageConsts.offerImages.length,
+                  itemCount: Consts.offerImages.length,
                   pagination: const SwiperPagination(
                       alignment: Alignment.bottomCenter,
                       builder: DotSwiperPaginationBuilder(
@@ -131,9 +131,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.zero,
                 childAspectRatio: 0.7,
                 children: List.generate(
-                  4,
+                  Consts.productsList.length < 4
+                      ? Consts.productsList.length
+                      : 4,
                   (index) {
-                    return const FeedsWidget();
+                    return FeedsWidget(
+                      imageUrl: Consts.productsList[index].imageUrl,
+                      title: Consts.productsList[index].title,
+                    );
                   },
                 ),
               )

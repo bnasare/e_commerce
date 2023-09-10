@@ -1,5 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:e_commerce/consts/image_consts.dart';
+import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/signup_screen.dart';
 import 'package:flutter/gestures.dart';
@@ -49,12 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
           autoplayDelay: 8000,
           itemBuilder: (BuildContext context, int index) {
             return Image.asset(
-              ImageConsts.authImagesPaths[index],
+              Consts.authImagesPaths[index],
               fit: BoxFit.cover,
             );
           },
           autoplay: true,
-          itemCount: ImageConsts.authImagesPaths.length,
+          itemCount: Consts.authImagesPaths.length,
         ),
         Container(
           color: Colors.black.withOpacity(0.7),
