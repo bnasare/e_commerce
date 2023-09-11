@@ -1,4 +1,5 @@
 import 'package:e_commerce/inner_screens/product_details.dart';
+import 'package:e_commerce/models/products_models.dart';
 import 'package:e_commerce/services/global_methods.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/price_widget.dart';
@@ -6,14 +7,12 @@ import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../services/utils.dart';
 
 class FeedsWidget extends StatefulWidget {
-  const FeedsWidget({Key? key, required this.imageUrl, required this.title})
-      : super(key: key);
-
-  final String imageUrl, title;
+  const FeedsWidget({Key? key}) : super(key: key);
 
   @override
   State<FeedsWidget> createState() => _FeedsWidgetState();
@@ -37,6 +36,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
+    final productModel = Provider.of<ProductModel>(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -52,7 +52,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
           child: Column(
             children: [
               FancyShimmerImage(
-                  imageUrl: widget.imageUrl,
+                  imageUrl: productModel.imageUrl,
                   height: size.height * 0.15,
                   width: double.infinity,
                   boxFit: BoxFit.cover),
@@ -64,7 +64,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                     Flexible(
                       flex: 3,
                       child: TextWidget(
-                        text: widget.title,
+                        text: productModel.title,
                         maxLines: 1,
                         color: color,
                         textSize: 20,
