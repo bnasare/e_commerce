@@ -7,6 +7,14 @@ class ProductProvider with ChangeNotifier {
     return productsList;
   }
 
+  List<ProductModel> get getOnSaleProducts {
+    return productsList.where((element) => element.isOnSale).toList();
+  }
+
+  ProductModel findProdById(String productId) {
+    return productsList.firstWhere((element) => element.id == productId);
+  }
+
   static final List<ProductModel> productsList = [
     // Adidas
     ProductModel(
@@ -17,7 +25,7 @@ class ProductProvider with ChangeNotifier {
       imageUrl: 'https://cdn.flightclub.com/750/TEMPLATE/349320/1.jpg',
       productCategoryName: 'Adidas',
       isOnSale: true,
-      isSingle: false,
+      isSingle: true,
     ),
     ProductModel(
       id: 'Adidas2',
@@ -27,7 +35,7 @@ class ProductProvider with ChangeNotifier {
       imageUrl: 'https://m.media-amazon.com/images/I/71SObVJbR-L._SX700_.jpg',
       productCategoryName: 'Adidas',
       isOnSale: false,
-      isSingle: false,
+      isSingle: true,
     ),
     // Nike
     ProductModel(
@@ -39,7 +47,7 @@ class ProductProvider with ChangeNotifier {
           'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/4cc253d2-6c9b-40b4-924c-e87b75c43614/air-max-scorpion-flyknit-shoes-ZWsC0D.png',
       productCategoryName: 'Nike',
       isOnSale: true,
-      isSingle: false,
+      isSingle: true,
     ),
     ProductModel(
       id: 'Nike2',
@@ -62,7 +70,7 @@ class ProductProvider with ChangeNotifier {
           'https://m.media-amazon.com/images/I/41ixFKrJDqL._AC_UY1000_.jpg',
       productCategoryName: 'Kenneth Cole',
       isOnSale: true,
-      isSingle: false,
+      isSingle: true,
     ),
     ProductModel(
       id: 'KennethCole2',
@@ -73,7 +81,7 @@ class ProductProvider with ChangeNotifier {
           'https://di2ponv0v5otw.cloudfront.net/posts/2022/09/25/6330de0fc5df6cff5570ad12/m_6330de844bc655d4df13c8fd.jpg',
       productCategoryName: 'Kenneth Cole',
       isOnSale: true,
-      isSingle: false,
+      isSingle: true,
     ),
     // Heels
     ProductModel(
@@ -84,7 +92,7 @@ class ProductProvider with ChangeNotifier {
       imageUrl: 'https://shoeiq.com/wp-content/uploads/stiletto-heels.jpg',
       productCategoryName: 'Heels',
       isOnSale: true,
-      isSingle: false,
+      isSingle: true,
     ),
     // Timberland
     ProductModel(
@@ -96,7 +104,7 @@ class ProductProvider with ChangeNotifier {
           'https://www.ubuy.com.gh/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNzFEdTVNT2pYMEwuX0FDX1VMMTUwMF8uanBn.jpg',
       productCategoryName: 'Timberland',
       isOnSale: true,
-      isSingle: false,
+      isSingle: true,
     ),
     // Puma
     ProductModel(
@@ -108,7 +116,7 @@ class ProductProvider with ChangeNotifier {
           'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/192257/12/sv01/fnd/SEA/fmt/png',
       productCategoryName: 'Puma',
       isOnSale: true,
-      isSingle: false,
+      isSingle: true,
     ),
   ];
 }

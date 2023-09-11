@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/product_provider.dart';
 import '../services/utils.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -30,6 +32,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
+    final productProvider = Provider.of<ProductProvider>(context);
+    final productId = ModalRoute.of(context)!.settings.arguments as String;
+    final getCurrentProduct = productProvider.findProdById(productId);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -51,8 +57,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           Expanded(
             flex: 2,
             child: FancyShimmerImage(
-              imageUrl:
-                  'https://static.wixstatic.com/media/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg/v1/fill/w_640,h_560,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg',
+              imageUrl: getCurrentProduct.imageUrl,
               width: double.infinity,
               boxFit: BoxFit.scaleDown,
             ),
@@ -78,7 +83,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       children: [
                         Flexible(
                           child: TextWidget(
-                            text: 'title',
+                            text: getCurrentProduct.title,
                             color: color,
                             textSize: 25,
                             isTitle: true,

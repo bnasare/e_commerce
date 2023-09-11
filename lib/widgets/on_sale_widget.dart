@@ -6,9 +6,10 @@ import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
 import '../inner_screens/product_details.dart';
-import '../services/global_methods.dart';
+import '../models/products_models.dart';
 import 'price_widget.dart';
 
 class OnSaleWidget extends StatefulWidget {
@@ -21,9 +22,11 @@ class OnSaleWidget extends StatefulWidget {
 class _OnSaleWidgetState extends State<OnSaleWidget> {
   @override
   Widget build(BuildContext context) {
+    final productModel = Provider.of<ProductModel>(context);
     final Color color = Utils(context).color;
     final theme = Utils(context).getTheme;
     Size size = Utils(context).getScreenSize;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -32,8 +35,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            GlobalMethods.navigateTo(
-                context: context, routeName: ProductDetailsScreen.routeName);
+            Navigator.pushNamed(context, ProductDetailsScreen.routeName,
+                arguments: productModel.id);
+            // GlobalMethods.navigateTo(
+            //     context: context, routeName: ProductDetailsScreen.routeName);
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -44,8 +49,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FancyShimmerImage(
-                      imageUrl:
-                          'https://static.wixstatic.com/media/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg/v1/fill/w_640,h_560,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg',
+                      imageUrl: productModel.imageUrl,
                       height: size.width * 0.22,
                       width: size.width * 0.22,
                       boxFit: BoxFit.fill,
@@ -54,7 +58,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     Column(
                       children: [
                         TextWidget(
-                          text: '1PC',
+                          text: productModel.isSingle ? '1PC' : '1KG',
                           color: color,
                           textSize: 22,
                           isTitle: true,
@@ -79,15 +83,16 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                     )
                   ],
                 ),
-                const PriceWidget(
-                  salePrice: 2.99,
-                  price: 5.90,
+                PriceWidget(
+                  salePrice: productModel.salePrice,
+                  price: productModel.price,
                   textPrice: '1',
                   isOnSale: true,
                 ),
                 const SizedBox(height: 5),
                 TextWidget(
-                  text: 'Product title',
+                  text: productModel.title,
+                  maxLines: 1,
                   color: color,
                   textSize: 16,
                   isTitle: true,

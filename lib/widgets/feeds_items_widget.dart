@@ -1,6 +1,5 @@
 import 'package:e_commerce/inner_screens/product_details.dart';
 import 'package:e_commerce/models/products_models.dart';
-import 'package:e_commerce/services/global_methods.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/price_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -45,8 +44,10 @@ class _FeedsWidgetState extends State<FeedsWidget> {
         color: Theme.of(context).cardColor,
         child: InkWell(
           onTap: () {
-            GlobalMethods.navigateTo(
-                context: context, routeName: ProductDetailsScreen.routeName);
+            Navigator.pushNamed(context, ProductDetailsScreen.routeName,
+                arguments: productModel.id);
+            // GlobalMethods.navigateTo(
+            //     context: context, routeName: ProductDetailsScreen.routeName);
           },
           borderRadius: BorderRadius.circular(12),
           child: Column(

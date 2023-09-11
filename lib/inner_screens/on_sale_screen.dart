@@ -5,6 +5,10 @@ import 'package:e_commerce/widgets/on_sale_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
+
+import '../models/products_models.dart';
+import '../providers/product_provider.dart';
 
 class OnSaleScreen extends StatefulWidget {
   static const routeName = "/OnSaleScreen";
@@ -15,9 +19,11 @@ class OnSaleScreen extends StatefulWidget {
 }
 
 class _OnSaleScreenState extends State<OnSaleScreen> {
-  bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    List<ProductModel> productsOnSale = productProvider.getOnSaleProducts;
+
     final Color color = Utils(context).color;
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
@@ -44,7 +50,7 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
         ),
         centerTitle: true,
       ),
-      body: isEmpty
+      body: productsOnSale.isEmpty
           ? Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -72,9 +78,11 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
               padding: EdgeInsets.zero,
               childAspectRatio: 1.1,
               children: List.generate(
-                12,
+                productsOnSale.length,
                 (index) {
-                  return const OnSaleWidget();
+                  return ChangeNotifierProvider.value(
+                      value: productsOnSale[index],
+                      child: const OnSaleWidget());
                 },
               ),
             ),
