@@ -86,8 +86,8 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                     Flexible(
                       flex: 4,
                       child: PriceWidget(
-                        salePrice: 2.99,
-                        price: 5.90,
+                        salePrice: productModel.salePrice,
+                        price: productModel.price,
                         textPrice: quantityTextController.text,
                         isOnSale: true,
                       ),
@@ -101,7 +101,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                         children: [
                           FittedBox(
                             child: TextWidget(
-                              text: 'PC',
+                              text: productModel.isSingle ? 'PC' : 'KG',
                               color: color,
                               textSize: 18,
                               isTitle: true,

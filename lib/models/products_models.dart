@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProductModel with ChangeNotifier {
   final String id, title, imageUrl, productCategoryName;
   final double price, salePrice;
-  final bool isOnSale, isPiece;
+  final bool isOnSale, isSingle;
 
   ProductModel(
       {required this.id,
@@ -13,5 +13,5 @@ class ProductModel with ChangeNotifier {
       required this.price,
       required this.salePrice,
       required this.isOnSale,
-      required this.isPiece});
+      required this.isSingle});
 }
