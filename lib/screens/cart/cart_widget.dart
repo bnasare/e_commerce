@@ -1,3 +1,4 @@
+import 'package:e_commerce/models/cart_models.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -5,8 +6,10 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../../inner_screens/product_details.dart';
+import '../../providers/product_provider.dart';
 import '../../services/global_methods.dart';
 
 class CartWidget extends StatefulWidget {
@@ -34,6 +37,13 @@ class _CartWidgetState extends State<CartWidget> {
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
     final Color color = Utils(context).color;
+    final productProvider = Provider.of<ProductProvider>(context);
+    final cartModel = Provider.of<CartModel>(context);
+    final getCurrentProduct = productProvider.findProdById(cartModel.productId);
+    double usedPrice = getCurrentProduct.isOnSale
+        ? getCurrentProduct.salePrice
+        : getCurrentProduct.price;
+
     return GestureDetector(
       onTap: () {
         GlobalMethods.navigateTo(
@@ -57,9 +67,8 @@ class _CartWidgetState extends State<CartWidget> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15)),
                       child: FancyShimmerImage(
-                        imageUrl:
-                            'https://static.wixstatic.com/media/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg/v1/fill/w_640,h_560,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg',
-                        boxFit: BoxFit.fill,
+                        imageUrl: getCurrentProduct.imageUrl,
+                        boxFit: BoxFit.cover,
                       ),
                     ),
                     Column(
@@ -68,7 +77,7 @@ class _CartWidgetState extends State<CartWidget> {
                         Padding(
                           padding: const EdgeInsets.all(6.0),
                           child: TextWidget(
-                            text: 'Title',
+                            text: getCurrentProduct.title,
                             color: color,
                             textSize: 20,
                             isTitle: true,
@@ -187,7 +196,7 @@ class _CartWidgetState extends State<CartWidget> {
                           const SizedBox(height: 5),
                           const HeartButton(),
                           TextWidget(
-                            text: '\$0.39',
+                            text: '\$${usedPrice.toStringAsFixed(2)}',
                             color: color,
                             textSize: 18,
                             maxLines: 1,

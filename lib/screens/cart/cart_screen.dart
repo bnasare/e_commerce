@@ -99,7 +99,9 @@ class _CartScreenState extends State<CartScreen> {
                   child: ListView.builder(
                     itemCount: cartItemsList.length,
                     itemBuilder: (context, index) {
-                      return const CartWidget();
+                      return ChangeNotifierProvider.value(
+                          value: cartItemsList[index],
+                          child: const CartWidget());
                     },
                   ),
                 ),
