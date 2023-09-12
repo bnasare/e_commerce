@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:e_commerce/services/utils.dart';
+import 'package:e_commerce/widgets/empty_prod.dart';
 import 'package:e_commerce/widgets/on_sale_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -51,28 +52,8 @@ class _OnSaleScreenState extends State<OnSaleScreen> {
         centerTitle: true,
       ),
       body: productsOnSale.isEmpty
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    SizedBox(height: size.height * 0.08),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset('assets/images/sale/box.png'),
-                    ),
-                    Text(
-                      'No products on sale yet! \nStay tuned.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: color,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ),
-            )
+          ? const EmptyProductScreen(
+              text: 'No products on sale yet! \nStay tuned.')
           : GridView.count(
               crossAxisCount: 2,
               padding: EdgeInsets.zero,

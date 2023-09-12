@@ -15,6 +15,14 @@ class ProductProvider with ChangeNotifier {
     return productsList.firstWhere((element) => element.id == productId);
   }
 
+  List<ProductModel> findByCategory(String categoryName) {
+    return productsList
+        .where((element) => element.productCategoryName
+            .toLowerCase()
+            .contains(categoryName.toLowerCase()))
+        .toList();
+  }
+
   static final List<ProductModel> productsList = [
     // Adidas
     ProductModel(

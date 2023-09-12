@@ -90,7 +90,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                         salePrice: productModel.salePrice,
                         price: productModel.price,
                         textPrice: quantityTextController.text,
-                        isOnSale: true,
+                        isOnSale: productModel.isOnSale,
                       ),
                     ),
                     const SizedBox(

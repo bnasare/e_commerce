@@ -1,3 +1,4 @@
+import 'package:e_commerce/inner_screens/category_screen.dart';
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/inner_screens/product_details.dart';
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
               LoginScreen.routeName: (context) => const LoginScreen(),
               ForgetPasswordScreen.routeName: (context) =>
                   const ForgetPasswordScreen(),
+              CategoryScreen.routeName: (context) => const CategoryScreen()
             },
           );
         },
