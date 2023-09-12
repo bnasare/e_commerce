@@ -2,6 +2,7 @@ import 'package:e_commerce/inner_screens/category_screen.dart';
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/inner_screens/product_details.dart';
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/providers/product_provider.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/login_screen.dart';
@@ -55,6 +56,9 @@ class _MyAppState extends State<MyApp> {
         }),
         ChangeNotifierProvider(create: (_) {
           return ProductProvider();
+        }),
+        ChangeNotifierProvider(create: (_) {
+          return CartProvider();
         })
       ],
       child: Consumer<DarkThemeProvider>(
