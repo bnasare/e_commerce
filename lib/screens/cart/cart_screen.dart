@@ -1,9 +1,11 @@
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/screens/cart/cart_widget.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/empty_screen.dart';
 
@@ -15,12 +17,14 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  bool isEmpty = true;
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
-    return isEmpty
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItemsList = cartProvider.getCartItems.values.toList();
+
+    return cartItemsList.isEmpty
         ? const EmptyScreen(
             imagePath: 'assets/images/sale/emptycart.png',
             title: 'Oops!',
@@ -33,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
               backgroundColor:
                   Theme.of(context).colorScheme.background.withOpacity(0.3),
               title: TextWidget(
-                text: 'Cart (2)',
+                text: 'Cart (${cartItemsList.length})',
                 color: color,
                 textSize: 22,
                 isTitle: true,
@@ -93,7 +97,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: cartItemsList.length,
                     itemBuilder: (context, index) {
                       return const CartWidget();
                     },

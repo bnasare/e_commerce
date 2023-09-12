@@ -1,5 +1,6 @@
 import 'package:e_commerce/inner_screens/product_details.dart';
 import 'package:e_commerce/models/products_models.dart';
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/price_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -36,6 +37,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -146,7 +148,11 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    cartProvider.addProductsToCart(
+                        productId: productModel.id,
+                        quantity: int.parse(quantityTextController.text));
+                  },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Theme.of(context).cardColor),

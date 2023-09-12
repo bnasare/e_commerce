@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -26,6 +27,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     final Color color = Utils(context).color;
     final theme = Utils(context).getTheme;
     Size size = Utils(context).getScreenSize;
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -69,7 +71,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                         Row(
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                cartProvider.addProductsToCart(
+                                    productId: productModel.id, quantity: 1);
+                              },
                               child: Icon(
                                 IconlyLight.bag2,
                                 size: 22,

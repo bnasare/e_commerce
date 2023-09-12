@@ -11,10 +11,11 @@ class CartProvider with ChangeNotifier {
 
   void addProductsToCart({required String productId, required int quantity}) {
     cartItems.putIfAbsent(
-        productId,
-        () => CartModel(
-            id: DateTime.now().toString(),
-            productId: productId,
-            quantity: quantity));
+      productId,
+      () => CartModel(
+          id: DateTime.now().toString(),
+          productId: productId,
+          quantity: quantity),
+    );
   }
 }
