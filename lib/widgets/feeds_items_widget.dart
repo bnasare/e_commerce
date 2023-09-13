@@ -1,6 +1,7 @@
 import 'package:e_commerce/inner_screens/product_details.dart';
 import 'package:e_commerce/models/products_models.dart';
 import 'package:e_commerce/providers/cart_provider.dart';
+import 'package:e_commerce/providers/wishlist_provider.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/price_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -38,7 +39,11 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
-    bool isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    final wishListProvider = Provider.of<WishListProvider>(context);
+
+    bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    bool? isInWishList =
+        wishListProvider.getWishListItems.containsKey(productModel.id);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -74,9 +79,12 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                         isTitle: true,
                       ),
                     ),
-                    const Flexible(
+                    Flexible(
                       flex: 1,
-                      child: HeartButton(),
+                      child: HeartButton(
+                        productId: productModel.id,
+                        isInWishList: isInWishList,
+                      ),
                     ),
                   ],
                 ),

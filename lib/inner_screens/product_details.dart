@@ -9,6 +9,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/product_provider.dart';
+import '../providers/wishlist_provider.dart';
 import '../services/utils.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -35,13 +36,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final Color color = Utils(context).color;
     final productProvider = Provider.of<ProductProvider>(context);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
+    final wishListProvider = Provider.of<WishListProvider>(context);
     final getCurrentProduct = productProvider.findProdById(productId);
     final cartProvider = Provider.of<CartProvider>(context);
     double usedPrice = getCurrentProduct.isOnSale
         ? getCurrentProduct.salePrice
         : getCurrentProduct.price;
     double totalPrice = usedPrice * int.parse(quantityTextController.text);
-    bool isInCart = cartProvider.getCartItems.containsKey(getCurrentProduct.id);
+    bool? isInCart =
+        cartProvider.getCartItems.containsKey(getCurrentProduct.id);
+    bool? isInWishList =
+        wishListProvider.getWishListItems.containsKey(getCurrentProduct.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -96,7 +101,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             isTitle: true,
                           ),
                         ),
-                        const HeartButton()
+                        HeartButton(
+                          productId: getCurrentProduct.id,
+                          isInWishList: isInWishList,
+                        ),
                       ],
                     ),
                   ),

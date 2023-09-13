@@ -8,21 +8,22 @@ class WishListProvider with ChangeNotifier {
     return wishLishtItems;
   }
 
-  void addProductToWishList({required String productId}) {
+  void addRemoveProductToWishList({required String productId}) {
     if (wishLishtItems.containsKey(productId)) {
-      removeOneItem(productId: productId);
+      removeOneItem(productId);
+    } else {
+      wishLishtItems.putIfAbsent(
+        productId,
+        () => WishListModel(
+          id: DateTime.now().toString(),
+          productId: productId,
+        ),
+      );
     }
-    wishLishtItems.putIfAbsent(
-      productId,
-      () => WishListModel(
-        id: DateTime.now().toString(),
-        productId: productId,
-      ),
-    );
     notifyListeners();
   }
 
-  void removeOneItem({required String productId}) {
+  void removeOneItem(String productId) {
     wishLishtItems.remove(productId);
     notifyListeners();
   }

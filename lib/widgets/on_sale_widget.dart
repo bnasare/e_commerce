@@ -1,4 +1,5 @@
 import 'package:e_commerce/providers/cart_provider.dart';
+import 'package:e_commerce/providers/wishlist_provider.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -25,7 +26,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
     final cartProvider = Provider.of<CartProvider>(context);
-    bool isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    final wishListProvider = Provider.of<WishListProvider>(context);
+    bool? isInCart = cartProvider.getCartItems.containsKey(productModel.id);
+    bool? isInWishList =
+        wishListProvider.getWishListItems.containsKey(productModel.id);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -80,7 +84,10 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                   color: isInCart ? Colors.green : color,
                                 ),
                               ),
-                              const HeartButton()
+                              HeartButton(
+                                productId: productModel.id,
+                                isInWishList: isInWishList,
+                              )
                             ],
                           ),
                         ],
