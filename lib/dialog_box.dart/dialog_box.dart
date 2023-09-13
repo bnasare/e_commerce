@@ -55,7 +55,7 @@ class AlertDialogs {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
               },
               child: const Text(
                 'Cancel',
@@ -65,6 +65,7 @@ class AlertDialogs {
             TextButton(
               onPressed: () {
                 fct();
+                Navigator.pop(context);
               },
               child: const Text(
                 'OK',

@@ -22,7 +22,8 @@ class _CartScreenState extends State<CartScreen> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
     final cartProvider = Provider.of<CartProvider>(context);
-    final cartItemsList = cartProvider.getCartItems.values.toList();
+    final cartItemsList =
+        cartProvider.getCartItems.values.toList().reversed.toList();
 
     return cartItemsList.isEmpty
         ? const EmptyScreen(
@@ -48,7 +49,9 @@ class _CartScreenState extends State<CartScreen> {
                     AlertDialogs.warningDialog(
                         title: 'Empty your cart?',
                         subtitle: 'Are you sure?',
-                        fct: () {},
+                        fct: () {
+                          cartProvider.clearCart();
+                        },
                         context: context);
                   },
                   icon: Icon(
@@ -101,7 +104,8 @@ class _CartScreenState extends State<CartScreen> {
                     itemBuilder: (context, index) {
                       return ChangeNotifierProvider.value(
                           value: cartItemsList[index],
-                          child: const CartWidget());
+                          child: CartWidget(
+                              quantity: cartItemsList[index].quantity));
                     },
                   ),
                 ),

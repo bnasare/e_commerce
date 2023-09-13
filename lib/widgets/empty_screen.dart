@@ -28,10 +28,13 @@ class EmptyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: size.height * 0.1),
-            Image.asset(
-              imagePath,
-              width: double.infinity,
-              height: size.height * 0.4,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Image.asset(
+                imagePath,
+                width: double.infinity,
+                height: size.height * 0.4,
+              ),
             ),
             const SizedBox(height: 15),
             Text(
