@@ -53,7 +53,7 @@ class _CartWidgetState extends State<CartWidget> {
       },
       child: Row(
         children: [
-          Expanded(
+          Flexible(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
               child: Container(
@@ -70,121 +70,124 @@ class _CartWidgetState extends State<CartWidget> {
                           borderRadius: BorderRadius.circular(15)),
                       child: FancyShimmerImage(
                         imageUrl: getCurrentProduct.imageUrl,
-                        boxFit: BoxFit.cover,
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: TextWidget(
-                            text: getCurrentProduct.title,
-                            color: color,
-                            textSize: 20,
-                            isTitle: true,
+                    Flexible(
+                      flex: 7,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: TextWidget(
+                              text: getCurrentProduct.title,
+                              color: color,
+                              maxLines: 1,
+                              textSize: 20,
+                              isTitle: true,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          child: Row(
-                            children: [
-                              Flexible(
-                                flex: 2,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            width: size.width * 0.3,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Material(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.circular(12),
+                                        onTap: () {
+                                          if (quantityTextController.text ==
+                                              '1') {
+                                            return;
+                                          } else {
+                                            cartProvider.reduceQuantityByOne(
+                                                cartModel.productId);
+                                            setState(() {
+                                              quantityTextController
+                                                  .text = (int.parse(
+                                                          quantityTextController
+                                                              .text) -
+                                                      1)
+                                                  .toString();
+                                            });
+                                          }
+                                        },
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(6.0),
+                                          child: Icon(CupertinoIcons.minus,
+                                              color: Colors.white, size: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: TextField(
+                                    controller: quantityTextController,
+                                    keyboardType: TextInputType.number,
+                                    maxLines: 1,
+                                    decoration: const InputDecoration(
+                                      focusedBorder: UnderlineInputBorder(),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    cursorColor: Colors.green,
+                                    enabled: true,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[0-9]'))
+                                    ],
+                                    onChanged: (value) {
+                                      setState(
+                                        () {
+                                          if (value.isEmpty) {
+                                            quantityTextController.text = '1';
+                                          } else {
+                                            return;
+                                          }
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 2,
                                   child: Material(
-                                    color: Colors.red,
+                                    color: Colors.green,
                                     borderRadius: BorderRadius.circular(12),
                                     child: InkWell(
                                       borderRadius: BorderRadius.circular(12),
                                       onTap: () {
-                                        if (quantityTextController.text ==
-                                            '1') {
-                                          return;
-                                        } else {
-                                          cartProvider.reduceQuantityByOne(
-                                              cartModel.productId);
-                                          setState(() {
-                                            quantityTextController
-                                                .text = (int.parse(
-                                                        quantityTextController
-                                                            .text) -
-                                                    1)
-                                                .toString();
-                                          });
-                                        }
+                                        cartProvider.increaseQuantityByOne(
+                                            cartModel.productId);
+                                        setState(() {
+                                          quantityTextController.text =
+                                              (int.parse(quantityTextController
+                                                          .text) +
+                                                      1)
+                                                  .toString();
+                                        });
                                       },
                                       child: const Padding(
                                         padding: EdgeInsets.all(6.0),
-                                        child: Icon(CupertinoIcons.minus,
+                                        child: Icon(CupertinoIcons.add,
                                             color: Colors.white, size: 18),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Flexible(
-                                flex: 1,
-                                child: TextField(
-                                  controller: quantityTextController,
-                                  keyboardType: TextInputType.number,
-                                  maxLines: 1,
-                                  decoration: const InputDecoration(
-                                    focusedBorder: UnderlineInputBorder(),
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  cursorColor: Colors.green,
-                                  enabled: true,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]'))
-                                  ],
-                                  onChanged: (value) {
-                                    setState(
-                                      () {
-                                        if (value.isEmpty) {
-                                          quantityTextController.text = '1';
-                                        } else {
-                                          return;
-                                        }
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                              Flexible(
-                                flex: 2,
-                                child: Material(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(12),
-                                    onTap: () {
-                                      cartProvider.increaseQuantityByOne(
-                                          cartModel.productId);
-                                      setState(() {
-                                        quantityTextController.text =
-                                            (int.parse(quantityTextController
-                                                        .text) +
-                                                    1)
-                                                .toString();
-                                      });
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(6.0),
-                                      child: Icon(CupertinoIcons.add,
-                                          color: Colors.white, size: 18),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const Spacer(),
                     Padding(

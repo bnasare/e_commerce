@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-class CartModel with ChangeNotifier {
+class WishListModel with ChangeNotifier {
   final String id, productId;
-  final int quantity;
 
-  CartModel({
+  WishListModel({
     required this.id,
     required this.productId,
-    required this.quantity,
   });
 }

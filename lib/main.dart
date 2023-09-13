@@ -4,6 +4,7 @@ import 'package:e_commerce/inner_screens/on_sale_screen.dart';
 import 'package:e_commerce/inner_screens/product_details.dart';
 import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/providers/product_provider.dart';
+import 'package:e_commerce/providers/wishlist_provider.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/login_screen.dart';
 import 'package:e_commerce/screens/auth/signup_screen.dart';
@@ -59,6 +60,9 @@ class _MyAppState extends State<MyApp> {
         }),
         ChangeNotifierProvider(create: (_) {
           return CartProvider();
+        }),
+        ChangeNotifierProvider(create: (_) {
+          return WishListProvider();
         })
       ],
       child: Consumer<DarkThemeProvider>(
