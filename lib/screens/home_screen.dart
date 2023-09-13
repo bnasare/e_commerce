@@ -54,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.bottomCenter,
                       builder: DotSwiperPaginationBuilder(
                           color: Colors.white, activeColor: Colors.red)),
-                  // control: const SwiperControl(color: Colors.black),
                 ),
               ),
               const SizedBox(height: 6),
@@ -93,10 +92,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Flexible(
+                  Expanded(
                     child: SizedBox(
                       height: size.height * 0.2,
                       child: ListView.builder(
+                        shrinkWrap: true,
                         itemCount: productsOnSale.length < 10
                             ? productsOnSale.length
                             : 10,

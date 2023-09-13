@@ -38,6 +38,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
     Size size = Utils(context).getScreenSize;
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    bool isInCart = cartProvider.getCartItems.containsKey(productModel.id);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -48,17 +49,16 @@ class _FeedsWidgetState extends State<FeedsWidget> {
           onTap: () {
             Navigator.pushNamed(context, ProductDetailsScreen.routeName,
                 arguments: productModel.id);
-            // GlobalMethods.navigateTo(
-            //     context: context, routeName: ProductDetailsScreen.routeName);
           },
           borderRadius: BorderRadius.circular(12),
           child: Column(
             children: [
               FancyShimmerImage(
-                  imageUrl: productModel.imageUrl,
-                  height: size.height * 0.15,
-                  width: double.infinity,
-                  boxFit: BoxFit.cover),
+                imageUrl: productModel.imageUrl,
+                height: size.height * 0.15,
+                width: double.infinity,
+                boxFit: BoxFit.cover,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
@@ -148,11 +148,13 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {
-                    cartProvider.addProductsToCart(
-                        productId: productModel.id,
-                        quantity: int.parse(quantityTextController.text));
-                  },
+                  onPressed: isInCart
+                      ? null
+                      : () {
+                          cartProvider.addProductsToCart(
+                              productId: productModel.id,
+                              quantity: int.parse(quantityTextController.text));
+                        },
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Theme.of(context).cardColor),
@@ -167,7 +169,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                     ),
                   ),
                   child: TextWidget(
-                    text: 'Add to cart',
+                    text: isInCart ? 'In Cart' : 'Add to cart',
                     maxLines: 1,
                     color: color,
                     textSize: 20,

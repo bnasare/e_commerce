@@ -1,3 +1,4 @@
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -35,10 +36,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     final productProvider = Provider.of<ProductProvider>(context);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final getCurrentProduct = productProvider.findProdById(productId);
+    final cartProvider = Provider.of<CartProvider>(context);
     double usedPrice = getCurrentProduct.isOnSale
         ? getCurrentProduct.salePrice
         : getCurrentProduct.price;
     double totalPrice = usedPrice * int.parse(quantityTextController.text);
+    bool isInCart = cartProvider.getCartItems.containsKey(getCurrentProduct.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -279,12 +282,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             color: const Color.fromARGB(255, 86, 193, 90),
                             borderRadius: BorderRadius.circular(10),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: isInCart
+                                  ? null
+                                  : () {
+                                      cartProvider.addProductsToCart(
+                                          productId: getCurrentProduct.id,
+                                          quantity: int.parse(
+                                              quantityTextController.text));
+                                    },
                               borderRadius: BorderRadius.circular(10),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextWidget(
-                                    text: 'Add to cart',
+                                    text: isInCart ? 'In Cart' : 'Add to cart',
                                     color: Colors.white,
                                     textSize: 20),
                               ),
