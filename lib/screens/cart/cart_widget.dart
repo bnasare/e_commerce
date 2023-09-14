@@ -76,8 +76,7 @@ class _CartWidgetState extends State<CartWidget> {
                         imageUrl: getCurrentProduct.imageUrl,
                       ),
                     ),
-                    Flexible(
-                      flex: 7,
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

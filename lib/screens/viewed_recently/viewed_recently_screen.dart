@@ -2,7 +2,9 @@ import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/widgets/empty_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/viewed_products_provider.dart';
 import '../../services/utils.dart';
 import '../../widgets/text_widget.dart';
 import 'viewed_recently_widget.dart';
@@ -18,11 +20,17 @@ class ViewedRecentlyScreen extends StatefulWidget {
 
 class _ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
   bool check = true;
-  bool isEmpty = true;
+
   @override
   Widget build(BuildContext context) {
+    final viewedProductsProvider = Provider.of<ViewedProductsProvider>(context);
+    final viewedProductsItemsList = viewedProductsProvider
+        .getViewedProductsItems.values
+        .toList()
+        .reversed
+        .toList();
     Color color = Utils(context).color;
-    return isEmpty
+    return viewedProductsItemsList.isEmpty
         ? const EmptyScreen(
             imagePath: 'assets/images/sale/viewed.png',
             title: 'Oops!',
@@ -36,7 +44,9 @@ class _ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
                     AlertDialogs.warningDialog(
                         title: 'Empty your history?',
                         subtitle: 'Are you sure?',
-                        fct: () {},
+                        fct: () {
+                          viewedProductsProvider.clearHistory();
+                        },
                         context: context);
                   },
                   icon: Icon(
@@ -68,13 +78,17 @@ class _ViewedRecentlyScreenState extends State<ViewedRecentlyScreen> {
                   Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
             ),
             body: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (ctx, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 6),
-                    child: ViewedRecentlyWidget(),
-                  );
-                }),
+              itemCount: viewedProductsItemsList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 2, vertical: 6),
+                  child: ChangeNotifierProvider.value(
+                      value: viewedProductsItemsList[index],
+                      child: const ViewedRecentlyWidget()),
+                );
+              },
+            ),
           );
   }
 }

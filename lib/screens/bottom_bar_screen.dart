@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart' as badge;
 import 'package:e_commerce/provider/dark_theme_provider.dart';
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/screens/cart/cart_screen.dart';
 import 'package:e_commerce/screens/categories_screen.dart';
 import 'package:e_commerce/screens/home_screen.dart';
@@ -37,6 +38,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
     bool isDark = themeState.getDarkTheme;
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Scaffold(
       body: screens[selectedIndex],
@@ -70,8 +72,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               ),
               position: badge.BadgePosition.topEnd(top: -7, end: -7),
               badgeContent: FittedBox(
-                  child:
-                      TextWidget(text: '1', color: Colors.white, textSize: 15)),
+                  child: TextWidget(
+                      text: cartProvider.getCartItems.length.toString(),
+                      color: Colors.white,
+                      textSize: 15)),
               child:
                   Icon(selectedIndex == 2 ? IconlyBold.buy : IconlyLight.buy),
             ),

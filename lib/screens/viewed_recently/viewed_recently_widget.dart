@@ -1,9 +1,12 @@
 import 'package:e_commerce/inner_screens/product_details.dart';
+import 'package:e_commerce/models/viewed_products_models.dart';
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
-import '../../services/global_methods.dart';
+import '../../providers/product_provider.dart';
 import '../../services/utils.dart';
 import '../../widgets/text_widget.dart';
 
@@ -17,22 +20,32 @@ class ViewedRecentlyWidget extends StatefulWidget {
 class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    final viewedProductsModel = Provider.of<ViewedProductsModel>(context);
+    final getCurrentProduct =
+        productProvider.findProdById(viewedProductsModel.productId);
+    double usedPrice = getCurrentProduct.isOnSale
+        ? getCurrentProduct.salePrice
+        : getCurrentProduct.price;
+    final cartProvider = Provider.of<CartProvider>(context);
+    bool? isInCart =
+        cartProvider.getCartItems.containsKey(getCurrentProduct.id);
     Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          GlobalMethods.navigateTo(
-              context: context, routeName: ProductDetailsScreen.routeName);
+          Navigator.pushNamed(context, ProductDetailsScreen.routeName,
+              arguments: viewedProductsModel.productId);
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FancyShimmerImage(
-              imageUrl:
-                  'https://static.wixstatic.com/media/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg/v1/fill/w_640,h_560,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto/8ae49c_38b9112702ca4a34ba1ac6270a402d9b~mv2.jpg',
+              imageUrl: getCurrentProduct.imageUrl,
               boxFit: BoxFit.fill,
               height: size.width * 0.27,
               width: size.width * 0.25,
@@ -43,7 +56,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
             Column(
               children: [
                 TextWidget(
-                  text: 'Title',
+                  text: getCurrentProduct.title,
                   color: color,
                   textSize: 24,
                   isTitle: true,
@@ -52,7 +65,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                   height: 12,
                 ),
                 TextWidget(
-                  text: '\$12.88',
+                  text: '\$${usedPrice.toStringAsFixed(2)}',
                   color: color,
                   textSize: 20,
                   isTitle: false,
@@ -67,11 +80,16 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                 color: Colors.green,
                 child: InkWell(
                     borderRadius: BorderRadius.circular(12),
-                    onTap: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    onTap: isInCart
+                        ? null
+                        : () {
+                            cartProvider.addProductsToCart(
+                                productId: getCurrentProduct.id, quantity: 1);
+                          },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Icon(
-                        CupertinoIcons.add,
+                        isInCart ? Icons.check : IconlyBold.plus,
                         color: Colors.white,
                         size: 20,
                       ),
