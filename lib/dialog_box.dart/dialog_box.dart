@@ -77,4 +77,41 @@ class AlertDialogs {
       },
     );
   }
+
+  static void errorDialog({
+    required String title,
+    required String subtitle,
+    required BuildContext context,
+  }) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              const Icon(
+                IconlyLight.dangerTriangle,
+                color: Colors.red,
+                size: 20,
+              ),
+              const SizedBox(width: 3),
+              Text(title),
+            ],
+          ),
+          content: Text(subtitle),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'OK',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
