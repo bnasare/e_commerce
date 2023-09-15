@@ -20,10 +20,10 @@ class GoogleButton extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 8,
+            width: 10,
           ),
           TextWidget(
-              text: 'Sign in with google', color: Colors.white, textSize: 18)
+              text: 'Sign in with Google', color: Colors.white, textSize: 18)
         ]),
       ),
     );

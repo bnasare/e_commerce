@@ -6,6 +6,7 @@ import 'package:e_commerce/consts/firebase_consts.dart';
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:e_commerce/widgets/loading_manager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -65,8 +66,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const BottomBarScreen()));
         print('Successfully registered');
-      } catch (error) {
-        AlertDialogs.errorDialog(subtitle: '$error', context: context);
+      } on FirebaseException catch (error) {
+        AlertDialogs.errorDialog(
+            subtitle: '${error.message}', context: context);
         setState(() {
           isLoading = false;
         });
