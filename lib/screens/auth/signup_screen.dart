@@ -4,6 +4,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/consts/firebase_consts.dart';
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
+import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:e_commerce/widgets/loading_manager.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _fullNameController = TextEditingController();
-  final _emailTextController = TextEditingController();
-  final _passTextController = TextEditingController();
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
   final _addressTextController = TextEditingController();
   final _passFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
@@ -38,8 +39,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose() {
     _fullNameController.dispose();
-    _emailTextController.dispose();
-    _passTextController.dispose();
+    emailTextController.dispose();
+    passwordTextController.dispose();
     _addressTextController.dispose();
     _emailFocusNode.dispose();
     _passFocusNode.dispose();
@@ -59,8 +60,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       try {
         await authInstance.createUserWithEmailAndPassword(
-            email: _emailTextController.text.trim(),
-            password: _passTextController.text.trim());
+            email: emailTextController.text.toLowerCase().trim(),
+            password: passwordTextController.text.trim());
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const BottomBarScreen()));
         print('Successfully registered');
       } catch (error) {
         AlertDialogs.errorDialog(
@@ -185,7 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onEditingComplete: () => FocusScope.of(context)
                               .requestFocus(_passFocusNode),
                           keyboardType: TextInputType.emailAddress,
-                          controller: _emailTextController,
+                          controller: emailTextController,
                           validator: (value) {
                             if (value!.isEmpty || !value.contains("@")) {
                               return "Please enter a valid Email adress";
@@ -216,7 +219,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           focusNode: _passFocusNode,
                           obscureText: _obscureText,
                           keyboardType: TextInputType.visiblePassword,
-                          controller: _passTextController,
+                          controller: passwordTextController,
                           validator: (value) {
                             if (value!.isEmpty || value.length < 7) {
                               return "Please enter a valid password";

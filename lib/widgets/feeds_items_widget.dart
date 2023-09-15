@@ -6,10 +6,13 @@ import 'package:e_commerce/widgets/heart_button.dart';
 import 'package:e_commerce/widgets/price_widget.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/firebase_consts.dart';
+import '../dialog_box.dart/dialog_box.dart';
 import '../services/utils.dart';
 
 class FeedsWidget extends StatefulWidget {
@@ -159,6 +162,15 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   onPressed: isInCart
                       ? null
                       : () {
+                          final User? user = authInstance.currentUser;
+                          if (user == null) {
+                            AlertDialogs.errorDialog(
+                              title: 'Error',
+                              subtitle: 'No user found. Please login first',
+                              context: context,
+                            );
+                            return;
+                          }
                           cartProvider.addProductsToCart(
                               productId: productModel.id,
                               quantity: int.parse(quantityTextController.text));

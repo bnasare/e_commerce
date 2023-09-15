@@ -2,10 +2,13 @@ import 'package:e_commerce/inner_screens/product_details.dart';
 import 'package:e_commerce/models/viewed_products_models.dart';
 import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../../consts/firebase_consts.dart';
+import '../../dialog_box.dart/dialog_box.dart';
 import '../../providers/product_provider.dart';
 import '../../services/utils.dart';
 import '../../widgets/text_widget.dart';
@@ -83,6 +86,15 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                     onTap: isInCart
                         ? null
                         : () {
+                            final User? user = authInstance.currentUser;
+                            if (user == null) {
+                              AlertDialogs.errorDialog(
+                                title: 'Error',
+                                subtitle: 'No user found. Please login first',
+                                context: context,
+                              );
+                              return;
+                            }
                             cartProvider.addProductsToCart(
                                 productId: getCurrentProduct.id, quantity: 1);
                           },

@@ -10,6 +10,7 @@ import 'package:e_commerce/providers/wishlist_provider.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/login_screen.dart';
 import 'package:e_commerce/screens/auth/signup_screen.dart';
+import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:e_commerce/screens/orders/orders_screen.dart';
 import 'package:e_commerce/screens/viewed_recently/viewed_recently_screen.dart';
 import 'package:e_commerce/screens/wishlist/wishlist_screen.dart';
@@ -97,7 +98,7 @@ class _MyAppState extends State<MyApp> {
           child: Consumer<DarkThemeProvider>(
             builder: (context, themeProvider, child) {
               return MaterialApp(
-                home: const LoginScreen(),
+                home: const BottomBarScreen(),
                 debugShowCheckedModeBanner: false,
                 theme: Styles.themeData(themeProvider.getDarkTheme, context),
                 routes: {
