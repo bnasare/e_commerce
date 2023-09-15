@@ -89,8 +89,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                             final User? user = authInstance.currentUser;
                             if (user == null) {
                               AlertDialogs.errorDialog(
-                                title: 'Error',
-                                subtitle: 'No user found. Please login first',
+                                subtitle: 'No user found. Please login first.',
                                 context: context,
                               );
                               return;

@@ -79,7 +79,6 @@ class AlertDialogs {
   }
 
   static void errorDialog({
-    required String title,
     required String subtitle,
     required BuildContext context,
   }) {
@@ -87,15 +86,15 @@ class AlertDialogs {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Row(
+          title: const Row(
             children: [
-              const Icon(
+              Icon(
                 IconlyLight.dangerTriangle,
                 color: Colors.red,
                 size: 20,
               ),
-              const SizedBox(width: 3),
-              Text(title),
+              SizedBox(width: 3),
+              Text('An Error Occured'),
             ],
           ),
           content: Text(subtitle),

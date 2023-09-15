@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/signup_screen.dart';
+import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -233,7 +234,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 10,
                 ),
                 AuthButton(
-                  fct: () {},
+                  fct: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BottomBarScreen()));
+                  },
                   buttonText: 'Continue as a guest',
                   primary: Colors.black,
                 ),

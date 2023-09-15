@@ -84,9 +84,8 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                             authInstance.currentUser;
                                         if (user == null) {
                                           AlertDialogs.errorDialog(
-                                            title: 'Error',
                                             subtitle:
-                                                'No user found. Please login first',
+                                                'No user found. Please login first.',
                                             context: context,
                                           );
                                           return;

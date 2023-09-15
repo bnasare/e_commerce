@@ -66,8 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             MaterialPageRoute(builder: (context) => const BottomBarScreen()));
         print('Successfully registered');
       } catch (error) {
-        AlertDialogs.errorDialog(
-            title: 'An error occured', subtitle: '$error', context: context);
+        AlertDialogs.errorDialog(subtitle: '$error', context: context);
         setState(() {
           isLoading = false;
         });

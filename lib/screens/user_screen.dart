@@ -1,9 +1,12 @@
+import 'package:e_commerce/consts/firebase_consts.dart';
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/provider/dark_theme_provider.dart';
+import 'package:e_commerce/screens/auth/login_screen.dart';
 import 'package:e_commerce/screens/orders/orders_screen.dart';
 import 'package:e_commerce/screens/viewed_recently/viewed_recently_screen.dart';
 import 'package:e_commerce/screens/wishlist/wishlist_screen.dart';
 import 'package:e_commerce/services/global_methods.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +20,7 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   final TextEditingController addressTextController = TextEditingController();
+  final User? user = authInstance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -131,9 +135,11 @@ class _UserScreenState extends State<UserScreen> {
                       title: const Text('Theme'),
                       value: themeState.getDarkTheme,
                       onChanged: (bool value) {
-                        setState(() {
-                          themeState.setDarkTheme = value;
-                        });
+                        setState(
+                          () {
+                            themeState.setDarkTheme = value;
+                          },
+                        );
                       },
                     ),
                   ),
@@ -141,19 +147,33 @@ class _UserScreenState extends State<UserScreen> {
               ),
               const SizedBox(height: 20),
               ListTile(
-                leading: const Icon(
-                  IconlyLight.logout,
+                leading: Icon(
+                  user == null ? IconlyLight.login : IconlyLight.logout,
                 ),
-                title: const Text(
-                  'Logout',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                title: Text(
+                  user == null ? 'Login' : 'Logout',
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 trailing: const Icon(IconlyLight.arrowRight2),
                 onTap: () {
+                  if (user == null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
+                    return;
+                  }
                   AlertDialogs.warningDialog(
                     title: 'Sign out',
                     subtitle: 'Do you wish to sign out?',
-                    fct: () {},
+                    fct: () async {
+                      await authInstance.signOut();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()));
+                    },
                     context: context,
                   );
                 },

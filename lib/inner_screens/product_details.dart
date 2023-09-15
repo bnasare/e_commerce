@@ -309,9 +309,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             authInstance.currentUser;
                                         if (user == null) {
                                           AlertDialogs.errorDialog(
-                                            title: 'Error',
                                             subtitle:
-                                                'No user found. Please login first',
+                                                'No user found. Please login first.',
                                             context: context,
                                           );
                                           return;
