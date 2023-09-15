@@ -1,3 +1,4 @@
+import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/inner_screens/category_screen.dart';
 import 'package:e_commerce/inner_screens/feeds_screen.dart';
 import 'package:e_commerce/inner_screens/on_sale_screen.dart';
@@ -49,7 +50,9 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  final firebaseInitialization = Firebase.initializeApp();
+  Future<FirebaseApp> firebaseInitialization = Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   @override
   Widget build(BuildContext context) {

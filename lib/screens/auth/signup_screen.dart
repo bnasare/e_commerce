@@ -47,26 +47,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   bool isLoading = false;
-
   void _submitFormOnRegister() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+    setState(() {
+      isLoading = true;
+    });
     if (isValid) {
-      setState(() {
-        isLoading = true;
-      });
+      _formKey.currentState!.save();
 
       try {
         await authInstance.createUserWithEmailAndPassword(
-            email: _emailTextController.text.toLowerCase().trim(),
+            email: _emailTextController.text.trim(),
             password: _passTextController.text.trim());
         print('Successfully registered');
       } catch (error) {
         AlertDialogs.errorDialog(
-            title: 'An error occurred', subtitle: '$error', context: context);
+            title: 'An error occured', subtitle: '$error', context: context);
+        setState(() {
+          isLoading = false;
+        });
       } finally {
         setState(() {
-          isLoading = false; // Set isLoading to false after the try-catch block
+          isLoading = false;
         });
       }
     }
@@ -257,13 +260,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         textInputAction: TextInputAction.done,
                         onEditingComplete: _submitFormOnRegister,
                         controller: _addressTextController,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 10) {
-                            return "Please enter a valid  address";
-                          } else {
-                            return null;
-                          }
-                        },
+                        // validator: (value) {
+                        //   if (value!.isEmpty || value.length < 10) {
+                        //     return "Please enter a valid  address";
+                        //   } else {
+                        //     return null;
+                        //   }
+                        // },
                         style: const TextStyle(color: Colors.white),
                         maxLines: 2,
                         textAlign: TextAlign.start,
@@ -306,14 +309,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : AuthButton(
-                        buttonText: 'Sign up',
-                        fct: () {
-                          _submitFormOnRegister();
-                        },
-                      ),
+                if (isLoading)
+                  const Center(child: CircularProgressIndicator())
+                else
+                  AuthButton(
+                    buttonText: 'Sign up',
+                    fct: () {
+                      _submitFormOnRegister();
+                    },
+                  ),
                 const SizedBox(
                   height: 10,
                 ),
