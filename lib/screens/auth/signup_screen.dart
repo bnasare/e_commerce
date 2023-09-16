@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/consts/firebase_consts.dart';
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
-import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:e_commerce/widgets/loading_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -63,8 +63,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
         await authInstance.createUserWithEmailAndPassword(
             email: emailTextController.text.toLowerCase().trim(),
             password: passwordTextController.text.trim());
+        final User? user = authInstance.currentUser;
+        final uid = user!.uid;
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'id': uid,
+          'name': _fullNameController.text,
+          'email': emailTextController.text.toLowerCase(),
+          'shipping address': _addressTextController.text,
+          'userWishList': [],
+          'userCartItems': [],
+          'createdAt': Timestamp.now(),
+        });
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const BottomBarScreen()));
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
         print('Successfully registered');
       } on FirebaseException catch (error) {
         AlertDialogs.errorDialog(
