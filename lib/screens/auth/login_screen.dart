@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
@@ -229,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const GoogleButton(),
+                  GoogleButton(),
                   const SizedBox(
                     height: 10,
                   ),
