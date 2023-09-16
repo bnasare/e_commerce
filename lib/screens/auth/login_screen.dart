@@ -63,6 +63,11 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           isLoading = false;
         });
+      } catch (error) {
+        AlertDialogs.errorDialog(subtitle: '$error', context: context);
+        setState(() {
+          isLoading = false;
+        });
       } finally {
         setState(() {
           isLoading = false;
@@ -231,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  GoogleButton(),
+                  const GoogleButton(),
                   const SizedBox(
                     height: 10,
                   ),

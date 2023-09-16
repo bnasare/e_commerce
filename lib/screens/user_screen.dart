@@ -1,6 +1,7 @@
 import 'package:e_commerce/consts/firebase_consts.dart';
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/provider/dark_theme_provider.dart';
+import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/login_screen.dart';
 import 'package:e_commerce/screens/orders/orders_screen.dart';
 import 'package:e_commerce/screens/viewed_recently/viewed_recently_screen.dart';
@@ -116,7 +117,12 @@ class _UserScreenState extends State<UserScreen> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgetPasswordScreen()));
+                },
               ),
               const SizedBox(height: 20),
               SizedBox(
