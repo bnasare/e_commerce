@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/consts/firebase_consts.dart';
 import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/provider/dark_theme_provider.dart';
@@ -7,6 +8,7 @@ import 'package:e_commerce/screens/orders/orders_screen.dart';
 import 'package:e_commerce/screens/viewed_recently/viewed_recently_screen.dart';
 import 'package:e_commerce/screens/wishlist/wishlist_screen.dart';
 import 'package:e_commerce/services/global_methods.dart';
+import 'package:e_commerce/widgets/loading_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -22,172 +24,225 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   final TextEditingController addressTextController = TextEditingController();
   final User? user = authInstance.currentUser;
+  @override
+  void dispose() {
+    addressTextController.dispose();
+    super.dispose();
+  }
+
+  String? email;
+  String? name;
+  String? address;
+
+  bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> getUserdata() async {
+    setState(() {
+      isLoading = true;
+    });
+    if (user == null) {
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
+    try {
+      String uid = user!.uid;
+      final DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      if (userDoc == null) {
+        return;
+      } else {
+        email = userDoc.get('email');
+        address = userDoc.get('shipping_address');
+        name = userDoc.get('name');
+        addressTextController.text = userDoc.get('shipping_address');
+      }
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+      AlertDialogs.errorDialog(subtitle: '$error', context: context);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 15),
-              const Text(
-                'My Name',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
-              ),
-              const Text(
-                'benedictasare2@gmail.com',
-                style: TextStyle(fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: const Icon(
-                  IconlyLight.profile,
+        body: LoadingManager(
+          isLoading: is,
+          child: SafeArea(
+              child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 15),
+                Text(
+                  name == null ? 'user' : name!,
+                  style:
+                      const TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
                 ),
-                title: const Text(
-                  'Address',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                Text(
+                  email == null ? 'Email' : email!,
+                  style: const TextStyle(fontWeight: FontWeight.w400),
                 ),
-                subtitle: const Text('GW-0820-3072'),
-                trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {
-                  AlertDialogs.showAddressDialog(
-                      context, addressTextController);
-                },
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: const Icon(
-                  IconlyLight.bag2,
-                ),
-                title: const Text(
-                  'Orders',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-                trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {
-                  GlobalMethods.navigateTo(
-                      context: context, routeName: OrdersScreen.routeName);
-                },
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: const Icon(
-                  IconlyLight.show,
-                ),
-                title: const Text(
-                  'Viewed',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-                trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {
-                  GlobalMethods.navigateTo(
-                      context: context,
-                      routeName: ViewedRecentlyScreen.routeName);
-                },
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: const Icon(
-                  IconlyLight.heart,
-                ),
-                title: const Text(
-                  'Wishlist',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-                trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {
-                  GlobalMethods.navigateTo(
-                      context: context, routeName: WishListScreen.routeName);
-                },
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: const Icon(
-                  IconlyLight.password,
-                ),
-                title: const Text(
-                  'Forgot password',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-                trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForgetPasswordScreen()));
-                },
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ListTile(
-                  leading: Icon(themeState.getDarkTheme
-                      ? Icons.dark_mode_outlined
-                      : Icons.light_mode_outlined),
-                  title: const Text(
-                    'Theme',
+                const SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(
+                    IconlyLight.profile,
+                  ),
+                  title:  const Text(
+                    'Address',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-                  trailing: SizedBox(
-                    width: 24.0,
-                    child: SwitchListTile(
-                      title: const Text('Theme'),
-                      value: themeState.getDarkTheme,
-                      onChanged: (bool value) {
-                        setState(
-                          () {
-                            themeState.setDarkTheme = value;
-                          },
-                        );
-                      },
-                    ),
+                  subtitle:Text(address),
+                  trailing: const Icon(IconlyLight.arrowRight2),
+                  onTap: () {
+                    AlertDialogs.showAddressDialog(
+                        context, addressTextController);
+                  },
+                ),
+                const SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(
+                    IconlyLight.bag2,
                   ),
+                  title: const Text(
+                    'Orders',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  trailing: const Icon(IconlyLight.arrowRight2),
+                  onTap: () {
+                    GlobalMethods.navigateTo(
+                        context: context, routeName: OrdersScreen.routeName);
+                  },
                 ),
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                leading: Icon(
-                  user == null ? IconlyLight.login : IconlyLight.logout,
+                const SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(
+                    IconlyLight.show,
+                  ),
+                  title: const Text(
+                    'Viewed',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  trailing: const Icon(IconlyLight.arrowRight2),
+                  onTap: () {
+                    GlobalMethods.navigateTo(
+                        context: context,
+                        routeName: ViewedRecentlyScreen.routeName);
+                  },
                 ),
-                title: Text(
-                  user == null ? 'Login' : 'Logout',
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w500),
+                const SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(
+                    IconlyLight.heart,
+                  ),
+                  title: const Text(
+                    'Wishlist',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  trailing: const Icon(IconlyLight.arrowRight2),
+                  onTap: () {
+                    GlobalMethods.navigateTo(
+                        context: context, routeName: WishListScreen.routeName);
+                  },
                 ),
-                trailing: const Icon(IconlyLight.arrowRight2),
-                onTap: () {
-                  if (user == null) {
+                const SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(
+                    IconlyLight.password,
+                  ),
+                  title: const Text(
+                    'Forgot password',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  trailing: const Icon(IconlyLight.arrowRight2),
+                  onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));
-                    return;
-                  }
-                  AlertDialogs.warningDialog(
-                    title: 'Sign out',
-                    subtitle: 'Do you wish to sign out?',
-                    fct: () async {
-                      await authInstance.signOut();
+                            builder: (context) => const ForgetPasswordScreen()));
+                  },
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: ListTile(
+                    leading: Icon(themeState.getDarkTheme
+                        ? Icons.dark_mode_outlined
+                        : Icons.light_mode_outlined),
+                    title: const Text(
+                      'Theme',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
+                    trailing: SizedBox(
+                      width: 24.0,
+                      child: SwitchListTile(
+                        title: const Text('Theme'),
+                        value: themeState.getDarkTheme,
+                        onChanged: (bool value) {
+                          setState(
+                            () {
+                              themeState.setDarkTheme = value;
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ListTile(
+                  leading: Icon(
+                    user == null ? IconlyLight.login : IconlyLight.logout,
+                  ),
+                  title: Text(
+                    user == null ? 'Login' : 'Logout',
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  trailing: const Icon(IconlyLight.arrowRight2),
+                  onTap: () {
+                    if (user == null) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const LoginScreen()));
-                    },
-                    context: context,
-                  );
-                },
-              ),
-            ],
+                      return;
+                    }
+                    AlertDialogs.warningDialog(
+                      title: 'Sign out',
+                      subtitle: 'Do you wish to sign out?',
+                      fct: () async {
+                        await authInstance.signOut();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()));
+                      },
+                      context: context,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
-    ));
+              ),
+            ),
+        ));
   }
 }

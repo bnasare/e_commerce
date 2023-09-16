@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'id': uid,
           'name': _fullNameController.text,
           'email': emailTextController.text.toLowerCase(),
-          'shipping address': _addressTextController.text,
+          'shipping_address': _addressTextController.text,
           'userWishList': [],
           'userCartItems': [],
           'createdAt': Timestamp.now(),
