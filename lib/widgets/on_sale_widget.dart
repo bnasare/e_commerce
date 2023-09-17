@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/dialog_box.dart';
 import '../consts/firebase_consts.dart';
-import '../dialog_box.dart/dialog_box.dart';
 import '../inner_screens/product_details.dart';
 import '../models/products_models.dart';
 import 'price_widget.dart';

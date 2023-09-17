@@ -1,4 +1,4 @@
-import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
+import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/widgets/empty_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';

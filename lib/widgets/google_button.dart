@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../dialog_box.dart/dialog_box.dart';
+import '../consts/dialog_box.dart';
 import 'text_widget.dart';
 
 class GoogleButton extends StatelessWidget {

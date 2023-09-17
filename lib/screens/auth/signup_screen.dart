@@ -3,8 +3,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/consts/consts.dart';
+import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/consts/firebase_consts.dart';
-import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/widgets/loading_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';

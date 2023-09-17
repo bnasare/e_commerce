@@ -1,4 +1,4 @@
-import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
+import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/screens/cart/cart_widget.dart';
 import 'package:e_commerce/services/utils.dart';

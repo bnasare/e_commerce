@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/dialog_box.dart';
 import '../consts/firebase_consts.dart';
-import '../dialog_box.dart/dialog_box.dart';
 import '../services/utils.dart';
 
 class FeedsWidget extends StatefulWidget {

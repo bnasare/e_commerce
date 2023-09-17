@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/dialog_box.dart';
 import '../consts/firebase_consts.dart';
-import '../dialog_box.dart/dialog_box.dart';
 import '../providers/product_provider.dart';
 import '../providers/viewed_products_provider.dart';
 import '../providers/wishlist_provider.dart';

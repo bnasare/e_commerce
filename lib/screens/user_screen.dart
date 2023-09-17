@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/consts/firebase_consts.dart';
-import 'package:e_commerce/dialog_box.dart/dialog_box.dart';
 import 'package:e_commerce/provider/dark_theme_provider.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/login_screen.dart';
@@ -37,6 +37,7 @@ class _UserScreenState extends State<UserScreen> {
   bool isLoading = false;
   @override
   void initState() {
+    getUserdata();
     super.initState();
   }
 
@@ -54,6 +55,7 @@ class _UserScreenState extends State<UserScreen> {
       String uid = user!.uid;
       final DocumentSnapshot userDoc =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      // ignore: unnecessary_null_comparison
       if (userDoc == null) {
         return;
       } else {
@@ -80,9 +82,9 @@ class _UserScreenState extends State<UserScreen> {
 
     return Scaffold(
         body: LoadingManager(
-          isLoading: is,
-          child: SafeArea(
-              child: SingleChildScrollView(
+      isLoading: isLoading,
+      child: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -92,8 +94,8 @@ class _UserScreenState extends State<UserScreen> {
                 const SizedBox(height: 15),
                 Text(
                   name == null ? 'user' : name!,
-                  style:
-                      const TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+                  style: const TextStyle(
+                      fontSize: 35, fontWeight: FontWeight.w700),
                 ),
                 Text(
                   email == null ? 'Email' : email!,
@@ -104,15 +106,54 @@ class _UserScreenState extends State<UserScreen> {
                   leading: const Icon(
                     IconlyLight.profile,
                   ),
-                  title:  const Text(
+                  title: const Text(
                     'Address',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-                  subtitle:Text(address),
+                  subtitle: Text(address ?? ""),
                   trailing: const Icon(IconlyLight.arrowRight2),
                   onTap: () {
-                    AlertDialogs.showAddressDialog(
-                        context, addressTextController);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Change Address'),
+                          content: TextField(
+                            onChanged: (value) {
+                              print('Value: $addressTextController');
+                            },
+                            controller: addressTextController,
+                            maxLines: 2,
+                            decoration: const InputDecoration(
+                                hintText: 'Update user address'),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () async {
+                                try {
+                                  final User? user = authInstance.currentUser;
+                                  FirebaseFirestore.instance
+                                      .doc(user!.uid)
+                                      .update({
+                                    'shipping_address':
+                                        addressTextController.text
+                                  });
+                                } catch (error) {
+                                  AlertDialogs.errorDialog(
+                                      subtitle: 'Update unsuccessful',
+                                      context: context);
+                                }
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  address = addressTextController.text;
+                                });
+                              },
+                              child: const Text('Update'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
                 const SizedBox(height: 20),
@@ -175,7 +216,8 @@ class _UserScreenState extends State<UserScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ForgetPasswordScreen()));
+                            builder: (context) =>
+                                const ForgetPasswordScreen()));
                   },
                 ),
                 const SizedBox(height: 20),
@@ -187,7 +229,8 @@ class _UserScreenState extends State<UserScreen> {
                         : Icons.light_mode_outlined),
                     title: const Text(
                       'Theme',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     trailing: SizedBox(
                       width: 24.0,
@@ -241,8 +284,8 @@ class _UserScreenState extends State<UserScreen> {
               ],
             ),
           ),
-              ),
-            ),
-        ));
+        ),
+      ),
+    ));
   }
 }

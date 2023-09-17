@@ -2,34 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
 class AlertDialogs {
-  static void showAddressDialog(
-      BuildContext context, TextEditingController addressTextController) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Change Address'),
-          content: TextField(
-            onChanged: (value) {
-              print('Value: $addressTextController');
-            },
-            controller: addressTextController,
-            maxLines: 3,
-            decoration: const InputDecoration(hintText: 'Update user address'),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Update'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   static void warningDialog({
     required String title,
     required String subtitle,

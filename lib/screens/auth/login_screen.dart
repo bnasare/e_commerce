@@ -10,8 +10,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../consts/dialog_box.dart';
 import '../../consts/firebase_consts.dart';
-import '../../dialog_box.dart/dialog_box.dart';
 import '../../services/global_methods.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/google_button.dart';
