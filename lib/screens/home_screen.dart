@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: SizedBox(
-                      height: size.height * 0.2,
+                      height: size.height * 0.22,
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: productsOnSale.length < 10

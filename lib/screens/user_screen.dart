@@ -92,10 +92,29 @@ class _UserScreenState extends State<UserScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 15),
-                Text(
-                  name == null ? 'user' : name!,
-                  style: const TextStyle(
-                      fontSize: 35, fontWeight: FontWeight.w700),
+                RichText(
+                  text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      const TextSpan(
+                        text: 'Hi ',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blue, // Set the color to blue
+                        ),
+                      ),
+                      TextSpan(
+                        text: name == null ? 'user' : name!,
+                        style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color:
+                              Colors.black, // Set the color for the user's name
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Text(
                   email == null ? 'Email' : email!,
@@ -110,7 +129,7 @@ class _UserScreenState extends State<UserScreen> {
                     'Address',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
-                  subtitle: Text(address ?? ""),
+                  subtitle: Text(address ?? "Shipping Address"),
                   trailing: const Icon(IconlyLight.arrowRight2),
                   onTap: () {
                     showDialog(
@@ -143,10 +162,11 @@ class _UserScreenState extends State<UserScreen> {
                                       subtitle: 'Update unsuccessful',
                                       context: context);
                                 }
-                                Navigator.of(context).pop();
+
                                 setState(() {
                                   address = addressTextController.text;
                                 });
+                                Navigator.pop(context);
                               },
                               child: const Text('Update'),
                             ),
