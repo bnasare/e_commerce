@@ -126,7 +126,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           TextWidget(
-                            text: '\$${usedPrice.toStringAsFixed(2)}/',
+                            text: '₵${usedPrice.toStringAsFixed(2)}/',
                             color: Colors.green,
                             textSize: 22,
                             isTitle: true,
@@ -280,7 +280,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     children: [
                                       TextWidget(
                                         text:
-                                            '\$${totalPrice.toStringAsFixed(2)}/',
+                                            '₵${totalPrice.toStringAsFixed(2)}/',
                                         color: color,
                                         textSize: 20,
                                         isTitle: true,

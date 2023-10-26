@@ -27,7 +27,7 @@ class PriceWidget extends StatelessWidget {
       child: Row(
         children: [
           TextWidget(
-            text: '\$${(userPrice * parsedTextPrice).toStringAsFixed(2)}',
+            text: '₵${(userPrice * parsedTextPrice).toStringAsFixed(2)}',
             color: Colors.green,
             textSize: 18,
             isTitle: false,
@@ -35,7 +35,7 @@ class PriceWidget extends StatelessWidget {
           const SizedBox(width: 5),
           if (isOnSale)
             Text(
-              '\$${(price * parsedTextPrice).toStringAsFixed(2)}',
+              '₵${(price * parsedTextPrice).toStringAsFixed(2)}',
               style: TextStyle(
                 fontSize: 15,
                 color: color,

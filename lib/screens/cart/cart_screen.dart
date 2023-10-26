@@ -88,7 +88,7 @@ class _CartScreenState extends State<CartScreen> {
                         const Spacer(),
                         FittedBox(
                           child: TextWidget(
-                            text: 'Total: \$0.746',
+                            text: 'Total: ₵0.746',
                             color: color,
                             textSize: 18,
                             isTitle: true,

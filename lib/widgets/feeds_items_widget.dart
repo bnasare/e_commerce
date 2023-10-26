@@ -127,7 +127,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                           Flexible(
                             child: TextFormField(
                               controller: quantityTextController,
-                              key: const ValueKey('10 \$'),
+                              key: const ValueKey('10 ₵'),
                               style: TextStyle(color: color, fontSize: 18),
                               keyboardType: TextInputType.number,
                               maxLines: 1,
