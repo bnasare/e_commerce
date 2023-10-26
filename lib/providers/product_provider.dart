@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../models/products_models.dart';
 
-class ProductProvider with ChangeNotifier {
+class ProductProvider extends ChangeNotifier {
   static final List<ProductModel> productsList = [];
+  List<ProductModel> searchList = productsList;
 
   List<ProductModel> get getProducts {
     return productsList;
@@ -43,11 +44,23 @@ class ProductProvider with ChangeNotifier {
   }
 
   List<ProductModel> findByCategory(String categoryName) {
-    return productsList
+    List<ProductModel> categoryList = productsList
         .where((element) => element.productCategoryName
             .toLowerCase()
             .contains(categoryName.toLowerCase()))
         .toList();
+    return categoryList;
+  }
+
+  List<ProductModel> searchQuery(String searchText) {
+    List<ProductModel> searchList = productsList
+        .where(
+          (element) => element.title.toLowerCase().contains(
+                searchText.toLowerCase(),
+              ),
+        )
+        .toList();
+    return searchList;
   }
 
   // static final List<ProductModel> productsList = [

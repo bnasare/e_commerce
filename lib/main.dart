@@ -1,10 +1,10 @@
-import 'package:e_commerce/fetch_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
+import 'fetch_screen.dart';
 import 'firebase_options.dart';
 import 'inner_screens/category_screen.dart';
 import 'inner_screens/feeds_screen.dart';

@@ -18,6 +18,7 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  List<ProductModel> listProductSearch = [];
   final TextEditingController? searchTextController = TextEditingController();
   final FocusNode searchTextFocusNode = FocusNode();
   @override
@@ -72,7 +73,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       focusNode: searchTextFocusNode,
                       controller: searchTextController,
                       onChanged: (value) {
-                        setState(() {});
+                        setState(() {
+                          listProductSearch = productProvider
+                              .searchQuery(value)
+                              .where((element) =>
+                                  element.productCategoryName == catText)
+                              .toList();
+                        });
                       },
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
@@ -91,6 +98,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           onPressed: () {
                             searchTextController!.clear();
                             searchTextFocusNode.unfocus();
+                            setState(() {
+                              listProductSearch.clear();
+                            });
                           },
                           icon: Icon(
                             Icons.close,
@@ -103,19 +113,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     ),
                   ),
                 ),
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  padding: EdgeInsets.zero,
-                  // crossAxisSpacing: 10,
-                  childAspectRatio: 0.7,
-                  children: List.generate(productsbyCategory.length, (index) {
-                    return ChangeNotifierProvider.value(
-                        value: productsbyCategory[index],
-                        child: const FeedsWidget());
-                  }),
-                ),
+                searchTextController!.text.isNotEmpty &&
+                        listProductSearch.isEmpty
+                    ? const EmptyProductScreen(
+                        text:
+                            'No products matched your search. Please try a different keyword')
+                    : GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        padding: EdgeInsets.zero,
+                        childAspectRatio: 0.7,
+                        children: List.generate(
+                            searchTextController!.text.isNotEmpty
+                                ? listProductSearch.length
+                                : productsbyCategory.length, (index) {
+                          return ChangeNotifierProvider.value(
+                              value: searchTextController!.text.isNotEmpty
+                                  ? listProductSearch[index]
+                                  : productsbyCategory[index],
+                              child: const FeedsWidget());
+                        }),
+                      ),
               ]),
             ),
     );
