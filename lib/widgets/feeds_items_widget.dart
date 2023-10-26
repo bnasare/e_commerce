@@ -65,7 +65,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 imageUrl: productModel.imageUrl,
                 height: size.height * 0.15,
                 width: double.infinity,
-                boxFit: BoxFit.cover,
+                boxFit: BoxFit.fill,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -115,7 +115,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                         children: [
                           FittedBox(
                             child: TextWidget(
-                              text: productModel.isSingle ? 'PC' : 'KG',
+                              text: productModel.isBulk ? 'KG' : 'PC',
                               color: color,
                               textSize: 18,
                               isTitle: true,

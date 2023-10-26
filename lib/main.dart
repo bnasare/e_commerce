@@ -1,3 +1,4 @@
+import 'package:e_commerce/fetch_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -98,7 +99,7 @@ class _MyAppState extends State<MyApp> {
           child: Consumer<DarkThemeProvider>(
             builder: (context, themeProvider, child) {
               return MaterialApp(
-                home: const BottomBarScreen(),
+                home: const FetchScreen(),
                 debugShowCheckedModeBanner: false,
                 theme: Styles.themeData(themeProvider.getDarkTheme, context),
                 routes: {

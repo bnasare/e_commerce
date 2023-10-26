@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/consts/firebase_consts.dart';
+import 'package:e_commerce/fetch_screen.dart';
 import 'package:e_commerce/widgets/loading_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -75,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'createdAt': Timestamp.now(),
         });
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
+            MaterialPageRoute(builder: (context) => const FetchScreen()));
         print('Successfully registered');
       } on FirebaseException catch (error) {
         AlertDialogs.errorDialog(

@@ -52,7 +52,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: TextWidget(
-          text: 'All Products',
+          text: catText,
           color: color,
           textSize: 20.0,
           isTitle: true,

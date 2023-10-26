@@ -81,7 +81,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: FancyShimmerImage(
                 imageUrl: getCurrentProduct.imageUrl,
                 width: double.infinity,
-                boxFit: BoxFit.cover,
+                boxFit: BoxFit.fill,
               ),
             ),
             Expanded(
@@ -132,7 +132,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             isTitle: true,
                           ),
                           TextWidget(
-                            text: getCurrentProduct.isSingle ? 'PC' : 'KG',
+                            text: getCurrentProduct.isBulk ? 'KG' : 'PC',
                             color: color,
                             textSize: 12,
                           ),
