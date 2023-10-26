@@ -49,7 +49,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         onTap: selectedScreen,
         items: <BottomNavigationBarItem>[

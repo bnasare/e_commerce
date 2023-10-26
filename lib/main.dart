@@ -1,26 +1,26 @@
-import 'package:e_commerce/firebase_options.dart';
-import 'package:e_commerce/inner_screens/category_screen.dart';
-import 'package:e_commerce/inner_screens/feeds_screen.dart';
-import 'package:e_commerce/inner_screens/on_sale_screen.dart';
-import 'package:e_commerce/inner_screens/product_details.dart';
-import 'package:e_commerce/providers/cart_provider.dart';
-import 'package:e_commerce/providers/product_provider.dart';
-import 'package:e_commerce/providers/viewed_products_provider.dart';
-import 'package:e_commerce/providers/wishlist_provider.dart';
-import 'package:e_commerce/screens/auth/forget_password.dart';
-import 'package:e_commerce/screens/auth/login_screen.dart';
-import 'package:e_commerce/screens/auth/signup_screen.dart';
-import 'package:e_commerce/screens/bottom_bar_screen.dart';
-import 'package:e_commerce/screens/orders/orders_screen.dart';
-import 'package:e_commerce/screens/viewed_recently/viewed_recently_screen.dart';
-import 'package:e_commerce/screens/wishlist/wishlist_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
+import 'firebase_options.dart';
+import 'inner_screens/category_screen.dart';
+import 'inner_screens/feeds_screen.dart';
+import 'inner_screens/on_sale_screen.dart';
+import 'inner_screens/product_details.dart';
 import 'provider/dark_theme_provider.dart';
+import 'providers/cart_provider.dart';
+import 'providers/product_provider.dart';
+import 'providers/viewed_products_provider.dart';
+import 'providers/wishlist_provider.dart';
+import 'screens/auth/forget_password.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/signup_screen.dart';
+import 'screens/bottom_bar_screen.dart';
+import 'screens/orders/orders_screen.dart';
+import 'screens/viewed_recently/viewed_recently_screen.dart';
+import 'screens/wishlist/wishlist_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

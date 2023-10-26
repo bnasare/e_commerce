@@ -101,7 +101,7 @@ class _UserScreenState extends State<UserScreen> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: Colors.blue, // Set the color to blue
+                          color: Colors.blue,
                         ),
                       ),
                       TextSpan(
@@ -109,8 +109,7 @@ class _UserScreenState extends State<UserScreen> {
                         style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w700,
-                          color:
-                              Colors.black, // Set the color for the user's name
+                          color: Colors.blue,
                         ),
                       ),
                     ],

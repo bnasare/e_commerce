@@ -40,7 +40,7 @@ class CategoriesScreen extends StatelessWidget {
     },
     {
       'imgPath': 'assets/images/cat/grains.jpeg',
-      'catText': 'Kenneth Cole',
+      'catText': 'Fashion',
     },
   ];
   @override

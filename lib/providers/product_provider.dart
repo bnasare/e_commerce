@@ -68,7 +68,7 @@ class ProductProvider with ChangeNotifier {
       isOnSale: false,
       isSingle: true,
     ),
-    // Kenneth Cole
+    // Fashion
     ProductModel(
       id: 'KennethCole1',
       title: 'Kenneth Cole Classic Loafer',
@@ -76,7 +76,7 @@ class ProductProvider with ChangeNotifier {
       salePrice: 129.99,
       imageUrl:
           'https://m.media-amazon.com/images/I/41ixFKrJDqL._AC_UY1000_.jpg',
-      productCategoryName: 'Kenneth Cole',
+      productCategoryName: 'Fashion',
       isOnSale: true,
       isSingle: true,
     ),
@@ -87,7 +87,7 @@ class ProductProvider with ChangeNotifier {
       salePrice: 129.99,
       imageUrl:
           'https://di2ponv0v5otw.cloudfront.net/posts/2022/09/25/6330de0fc5df6cff5570ad12/m_6330de844bc655d4df13c8fd.jpg',
-      productCategoryName: 'Kenneth Cole',
+      productCategoryName: 'Fashion',
       isOnSale: true,
       isSingle: true,
     ),
