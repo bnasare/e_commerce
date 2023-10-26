@@ -6,12 +6,11 @@ class Consts {
     'assets/images/offers/leather_wear.jpg'
   ];
   static List<String> authImagesPaths = [
-    'assets/images/landing/buy-on-laptop.jpg',
-    'assets/images/landing/buy-through.png',
-    'assets/images/landing/buyfood.jpg',
-    'assets/images/landing/grocery-cart.jpg',
-    'assets/images/landing/grocery-cart.jpg',
     'assets/images/landing/store.jpg',
-    'assets/images/landing/vergtablebg.jpg',
+    'assets/images/landing/multicolors.jpg',
+    'assets/images/landing/manufacture.jpg',
+    'assets/images/landing/buy_footwear.jpg',
+    'assets/images/landing/cart.jpg',
+    'assets/images/landing/discussion.jpg',
   ];
 }

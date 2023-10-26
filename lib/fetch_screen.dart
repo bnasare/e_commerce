@@ -1,3 +1,4 @@
+import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,9 +14,12 @@ class FetchScreen extends StatefulWidget {
 }
 
 class _FetchScreenState extends State<FetchScreen> {
+  var images = Consts.authImagesPaths;
+
   @override
   void initState() {
     super.initState();
+    images.shuffle();
     _fetchData();
   }
 
@@ -36,8 +40,7 @@ class _FetchScreenState extends State<FetchScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset('assets/images/loading.jpg',
-              fit: BoxFit.cover, height: double.infinity),
+          Image.asset(images[0], fit: BoxFit.cover, height: double.infinity),
           Container(color: Colors.black.withOpacity(0.7)),
           const Center(child: SpinKitFadingCircle(color: Colors.white))
         ],

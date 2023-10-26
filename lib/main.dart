@@ -18,7 +18,6 @@ import 'providers/wishlist_provider.dart';
 import 'screens/auth/forget_password.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/auth/signup_screen.dart';
-import 'screens/bottom_bar_screen.dart';
 import 'screens/orders/orders_screen.dart';
 import 'screens/viewed_recently/viewed_recently_screen.dart';
 import 'screens/wishlist/wishlist_screen.dart';
@@ -63,6 +62,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
@@ -71,6 +71,7 @@ class _MyAppState extends State<MyApp> {
           );
         } else {
           const MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: Center(
                 child: Text('An error occured'),
