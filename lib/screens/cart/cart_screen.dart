@@ -1,5 +1,6 @@
 import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/providers/cart_provider.dart';
+import 'package:e_commerce/providers/product_provider.dart';
 import 'package:e_commerce/screens/cart/cart_widget.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
@@ -24,6 +25,16 @@ class _CartScreenState extends State<CartScreen> {
     final cartProvider = Provider.of<CartProvider>(context);
     final cartItemsList =
         cartProvider.getCartItems.values.toList().reversed.toList();
+    final productProvider = Provider.of<ProductProvider>(context);
+
+    double total = 0.0;
+    cartProvider.getCartItems.forEach((key, value) {
+      final getCurrProduct = productProvider.findProdById(key);
+      total += (getCurrProduct.isOnSale
+              ? getCurrProduct.salePrice
+              : getCurrProduct.price) *
+          value.quantity;
+    });
 
     return cartItemsList.isEmpty
         ? const EmptyScreen(
@@ -34,6 +45,7 @@ class _CartScreenState extends State<CartScreen> {
           )
         : Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               elevation: 0,
               backgroundColor:
                   Theme.of(context).colorScheme.background.withOpacity(0.3),
@@ -88,7 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                         const Spacer(),
                         FittedBox(
                           child: TextWidget(
-                            text: 'Total: ₵0.746',
+                            text: 'Total: ₵${total.toStringAsFixed(2)}',
                             color: color,
                             textSize: 18,
                             isTitle: true,
