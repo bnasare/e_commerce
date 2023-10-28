@@ -62,8 +62,8 @@ class _WishListScreenState extends State<WishListScreen> {
                     AlertDialogs.warningDialog(
                         title: 'Empty your wishlist?',
                         subtitle: 'Are you sure?',
-                        fct: () {
-                          wishListProvider.clearWishList();
+                        fct: () async {
+                          await wishListProvider.clearWishList();
                         },
                         context: context);
                   },

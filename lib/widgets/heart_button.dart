@@ -20,16 +20,24 @@ class HeartButton extends StatelessWidget {
     final wishListProvider = Provider.of<WishListProvider>(context);
     final Color color = Utils(context).color;
     return GestureDetector(
-      onTap: () {
-        final User? user = authInstance.currentUser;
-        if (user == null) {
-          AlertDialogs.errorDialog(
-            subtitle: 'No user found. Please login first.',
-            context: context,
-          );
-          return;
-        }
-        wishListProvider.addRemoveProductToWishList(productId: productId);
+      onTap: () async {
+        try {
+          final User? user = authInstance.currentUser;
+          if (user == null) {
+            AlertDialogs.errorDialog(
+              subtitle: 'No user found. Please login first.',
+              context: context,
+            );
+            return;
+          }
+          if (isInWishList == false) {
+            await wishListProvider.addToWishList(
+                productId: productId, context: context);
+          } else {
+            await wishListProvider.removeOneItem(productId);
+          }
+          await wishListProvider.fetchWishList();
+        } catch (error) {}
       },
       child: Icon(
         isInWishList ? IconlyBold.heart : IconlyLight.heart,

@@ -15,17 +15,38 @@ class WishListProvider with ChangeNotifier {
     return wishLishtItems;
   }
 
-  void addRemoveProductToWishList({required String productId}) {
-    if (wishLishtItems.containsKey(productId)) {
-      removeOneItem(productId);
-    } else {
+  // void addRemoveProductToWishList({required String productId}) {
+  //   if (wishLishtItems.containsKey(productId)) {
+  //     removeOneItem(productId);
+  //   } else {
+  //     wishLishtItems.putIfAbsent(
+  //       productId,
+  //       () => WishListModel(
+  //         id: DateTime.now().toString(),
+  //         productId: productId,
+  //       ),
+  //     );
+  //   }
+  //   notifyListeners();
+  // }
+
+  Future<void> fetchWishList() async {
+    final User? user = authInstance.currentUser;
+    String uid = user!.uid;
+
+    final DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    if (userDoc == null) {
+      return;
+    }
+    final noOfWishlistItems = userDoc.get('userWishList').length;
+    for (int i = 0; i < noOfWishlistItems; i++) {
       wishLishtItems.putIfAbsent(
-        productId,
-        () => WishListModel(
-          id: DateTime.now().toString(),
-          productId: productId,
-        ),
-      );
+          userDoc.get('userWishList')[i]['productId'],
+          () => WishListModel(
+                id: userDoc.get('userWishList')[i]['wishlistId'],
+                productId: userDoc.get('userWishList')[i]['productId'],
+              ));
     }
     notifyListeners();
   }
@@ -55,12 +76,30 @@ class WishListProvider with ChangeNotifier {
     }
   }
 
-  void removeOneItem(String productId) {
+  Future<void> removeOneItem(
+    String productId,
+  ) async {
+    final User? user = authInstance.currentUser;
+    String uid = user!.uid;
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'userWishList': FieldValue.arrayRemove([
+        {
+          'productId': productId,
+          'wishlistId': wishLishtItems[productId]!.id,
+        }
+      ])
+    });
     wishLishtItems.remove(productId);
+    await fetchWishList();
     notifyListeners();
   }
 
-  void clearWishList() {
+  Future<void> clearWishList() async {
+    final User? user = authInstance.currentUser;
+    String uid = user!.uid;
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'userWishList': [],
+    });
     wishLishtItems.clear();
     notifyListeners();
   }

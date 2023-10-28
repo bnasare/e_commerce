@@ -8,6 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/product_provider.dart';
+import 'providers/wishlist_provider.dart';
 
 class FetchScreen extends StatefulWidget {
   const FetchScreen({super.key});
@@ -31,13 +32,17 @@ class _FetchScreenState extends State<FetchScreen> {
       final productProvider =
           Provider.of<ProductProvider>(context, listen: false);
       final cartProvider = Provider.of<CartProvider>(context, listen: false);
+      final wishListProvider =
+          Provider.of<WishListProvider>(context, listen: false);
       final User? user = authInstance.currentUser;
       if (user == null) {
         await productProvider.fetchProducts();
         cartProvider.clearCart();
+        wishListProvider.clearWishList();
       } else {
         await productProvider.fetchProducts();
         await cartProvider.fetchCart();
+        await wishListProvider.fetchWishList();
       }
 
       Navigator.pushReplacement(
