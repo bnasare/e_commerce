@@ -77,20 +77,18 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                     ),
                     Expanded(
+                      flex: 10,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: TextWidget(
-                              text: getCurrentProduct.title,
-                              color: color,
-                              maxLines: 1,
-                              textSize: 20,
-                              isTitle: true,
-                            ),
+                          TextWidget(
+                            text: getCurrentProduct.title,
+                            color: color,
+                            maxLines: 1,
+                            textSize: 20,
+                            isTitle: true,
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 5),
                           SizedBox(
                             width: size.width * 0.3,
                             child: Row(
@@ -198,8 +196,9 @@ class _CartWidgetState extends State<CartWidget> {
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () {
-                              cartProvider.removeOneItem(cartModel.productId);
+                            onTap: () async {
+                              await cartProvider
+                                  .removeOneItem(cartModel.productId);
                             },
                             child: const Icon(
                               CupertinoIcons.cart_badge_minus,

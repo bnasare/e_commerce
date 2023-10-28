@@ -63,7 +63,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             children: [
               FancyShimmerImage(
                 imageUrl: productModel.imageUrl,
-                height: size.height * 0.15,
+                height: size.height * 0.14,
                 width: double.infinity,
                 boxFit: BoxFit.fill,
               ),
@@ -73,7 +73,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                      flex: 3,
+                      flex: 9,
                       child: TextWidget(
                         text: productModel.title,
                         maxLines: 1,

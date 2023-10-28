@@ -37,8 +37,8 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
-        height: size.height * 0.6,
-        width: size.width * 0.4,
+        height: size.height * 0.58,
+        width: size.width * 0.42,
         child: Material(
           color: Theme.of(context).cardColor.withOpacity(0.9),
           borderRadius: BorderRadius.circular(12),
@@ -112,21 +112,24 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                       )
                     ],
                   ),
+                  const SizedBox(height: 8),
                   PriceWidget(
                     salePrice: productModel.salePrice,
                     price: productModel.price,
                     textPrice: '1',
                     isOnSale: true,
                   ),
-                  const SizedBox(height: 5),
-                  TextWidget(
-                    text: productModel.title,
-                    maxLines: 1,
-                    color: color,
-                    textSize: 16,
-                    isTitle: true,
+                  const SizedBox(height: 4),
+                  Flexible(
+                    flex: 6,
+                    child: TextWidget(
+                      text: productModel.title,
+                      maxLines: 1,
+                      color: color,
+                      textSize: 20,
+                      isTitle: true,
+                    ),
                   ),
-                  const SizedBox(height: 5),
                 ],
               ),
             ),

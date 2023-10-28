@@ -36,7 +36,7 @@ class CartProvider with ChangeNotifier {
     final cartId = const Uuid().v4();
     try {
       FirebaseFirestore.instance.collection('users').doc(uid).update({
-        'userCart': FieldValue.arrayUnion([
+        'userCartItems': FieldValue.arrayUnion([
           {
             'cartId': cartId,
             'productId': productId,
@@ -63,14 +63,14 @@ class CartProvider with ChangeNotifier {
     if (userDoc == null) {
       return;
     }
-    final noOfCartItems = userDoc.get('userCart').length;
+    final noOfCartItems = userDoc.get('userCartItems').length;
     for (int i = 0; i < noOfCartItems; i++) {
       cartItems.putIfAbsent(
-          userDoc.get('userCart')[i]['productId'],
+          userDoc.get('userCartItems')[i]['productId'],
           () => CartModel(
-                id: userDoc.get('userCart')[i]['cartId'],
-                productId: userDoc.get('userCart')[i]['productId'],
-                quantity: userDoc.get('userCart')[i]['quantity'],
+                id: userDoc.get('userCartItems')[i]['cartId'],
+                productId: userDoc.get('userCartItems')[i]['productId'],
+                quantity: userDoc.get('userCartItems')[i]['quantity'],
               ));
     }
     notifyListeners();
@@ -94,13 +94,45 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearCart() {
+  Future<void> clearCart() async {
+    final User? user = authInstance.currentUser;
+    String uid = user!.uid;
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'userCartItems': [],
+    });
     cartItems.clear();
     notifyListeners();
   }
 
-  void removeOneItem(String productId) {
+  Future<void> removeOneItem(
+    String productId,
+  ) async {
+    final User? user = authInstance.currentUser;
+    String uid = user!.uid;
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'userCartItems': FieldValue.arrayRemove([
+        {
+          'productId': productId,
+          'cartId': cartItems[productId]!.id,
+          'quantity': cartItems[productId]!.quantity
+        }
+      ])
+    });
     cartItems.remove(productId);
+    await fetchCart();
     notifyListeners();
   }
+
+  //   Future<void> removeOneItem(
+  //     {required String cartId,
+  //     required String productId,
+  //     required int quantity}) async {
+  //   await userCollection.doc(user!.uid).update({
+  //     'userCart': FieldValue.arrayRemove([
+  //       {'cartId': cartId, 'productId': productId, 'quantity': quantity}
+  //     ])
+  //   });
+  //   _cartItems.remove(productId);
+  //   notifyListeners();
+  // }
 }
