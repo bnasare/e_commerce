@@ -66,9 +66,12 @@ class WishlistWidget extends StatelessWidget {
                     Row(
                       children: [
                         IconButton(
-                          onPressed: () {
-                            cartProvider.addProductsToCart(
-                                productId: getCurrentProduct.id, quantity: 1);
+                          onPressed: () async {
+                            await cartProvider.addToCart(
+                                context: context,
+                                productId: getCurrentProduct.id,
+                                quantity: 1);
+                            await cartProvider.fetchCart();
                           },
                           icon: Icon(
                             isInCart ? IconlyBold.bag2 : IconlyLight.bag2,

@@ -304,7 +304,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               child: InkWell(
                                 onTap: isInCart
                                     ? null
-                                    : () {
+                                    : () async {
                                         final User? user =
                                             authInstance.currentUser;
                                         if (user == null) {
@@ -315,10 +315,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           );
                                           return;
                                         }
-                                        cartProvider.addProductsToCart(
+                                        await cartProvider.addToCart(
                                             productId: getCurrentProduct.id,
                                             quantity: int.parse(
-                                                quantityTextController.text));
+                                                quantityTextController.text),
+                                            context: context);
+                                        await cartProvider.fetchCart();
                                       },
                                 borderRadius: BorderRadius.circular(10),
                                 child: Padding(

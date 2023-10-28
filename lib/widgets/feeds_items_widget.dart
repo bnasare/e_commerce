@@ -161,7 +161,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                 child: TextButton(
                   onPressed: isInCart
                       ? null
-                      : () {
+                      : () async {
                           final User? user = authInstance.currentUser;
                           if (user == null) {
                             AlertDialogs.errorDialog(
@@ -170,9 +170,11 @@ class _FeedsWidgetState extends State<FeedsWidget> {
                             );
                             return;
                           }
-                          cartProvider.addProductsToCart(
+                          await cartProvider.addToCart(
+                              context: context,
                               productId: productModel.id,
                               quantity: int.parse(quantityTextController.text));
+                          await cartProvider.fetchCart();
                         },
                   style: ButtonStyle(
                     backgroundColor:

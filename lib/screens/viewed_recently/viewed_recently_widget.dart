@@ -85,7 +85,7 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                     borderRadius: BorderRadius.circular(12),
                     onTap: isInCart
                         ? null
-                        : () {
+                        : () async {
                             final User? user = authInstance.currentUser;
                             if (user == null) {
                               AlertDialogs.errorDialog(
@@ -94,8 +94,11 @@ class _ViewedRecentlyWidgetState extends State<ViewedRecentlyWidget> {
                               );
                               return;
                             }
-                            cartProvider.addProductsToCart(
-                                productId: getCurrentProduct.id, quantity: 1);
+                            await cartProvider.addToCart(
+                                context: context,
+                                productId: getCurrentProduct.id,
+                                quantity: 1);
+                            await cartProvider.fetchCart();
                           },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
