@@ -5,7 +5,6 @@ import 'package:e_commerce/consts/consts.dart';
 import 'package:e_commerce/fetch_screen.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/signup_screen.dart';
-import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:e_commerce/widgets/loading_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -276,7 +275,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const BottomBarScreen()));
+                              builder: (context) => const FetchScreen()));
                     },
                     buttonText: 'Continue as a guest',
                     primary: Colors.black,
