@@ -1,4 +1,5 @@
 import 'package:e_commerce/consts/consts.dart';
+import 'package:e_commerce/providers/cart_provider.dart';
 import 'package:e_commerce/screens/bottom_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -27,7 +28,9 @@ class _FetchScreenState extends State<FetchScreen> {
     await Future.delayed(const Duration(microseconds: 5), () async {
       final productProvider =
           Provider.of<ProductProvider>(context, listen: false);
+      final cartProvider = Provider.of<CartProvider>(context, listen: false);
       await productProvider.fetchProducts();
+      await cartProvider.fetchCart();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const BottomBarScreen()),
