@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart' as badge;
-import 'package:e_commerce/provider/dark_theme_provider.dart';
 import 'package:e_commerce/providers/cart_provider.dart';
+import 'package:e_commerce/providers/dark_theme_provider.dart';
 import 'package:e_commerce/screens/cart/cart_screen.dart';
 import 'package:e_commerce/screens/categories_screen.dart';
 import 'package:e_commerce/screens/home_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/consts/firebase_consts.dart';
-import 'package:e_commerce/provider/dark_theme_provider.dart';
+import 'package:e_commerce/providers/dark_theme_provider.dart';
 import 'package:e_commerce/screens/auth/forget_password.dart';
 import 'package:e_commerce/screens/auth/login_screen.dart';
 import 'package:e_commerce/screens/orders/orders_screen.dart';
