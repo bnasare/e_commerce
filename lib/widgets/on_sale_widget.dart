@@ -38,7 +38,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
         height: size.height * 0.58,
-        width: size.width * 0.42,
+        width: size.width * 0.43,
         child: Material(
           color: Theme.of(context).cardColor.withOpacity(0.9),
           borderRadius: BorderRadius.circular(12),

@@ -8,12 +8,19 @@ import 'package:provider/provider.dart';
 
 import '../services/utils.dart';
 
-class HeartButton extends StatelessWidget {
+class HeartButton extends StatefulWidget {
   const HeartButton(
       {Key? key, this.isInWishList = false, required this.productId})
       : super(key: key);
   final bool isInWishList;
   final String productId;
+
+  @override
+  State<HeartButton> createState() => _HeartButtonState();
+}
+
+class _HeartButtonState extends State<HeartButton> {
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +29,9 @@ class HeartButton extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         try {
+          setState(() {
+            isLoading = true;
+          });
           final User? user = authInstance.currentUser;
           if (user == null) {
             AlertDialogs.errorDialog(
@@ -30,20 +40,36 @@ class HeartButton extends StatelessWidget {
             );
             return;
           }
-          if (isInWishList == false) {
+          if (widget.isInWishList == false) {
             await wishListProvider.addToWishList(
-                productId: productId, context: context);
+                productId: widget.productId, context: context);
           } else {
-            await wishListProvider.removeOneItem(productId);
+            await wishListProvider.removeOneItem(widget.productId);
           }
           await wishListProvider.fetchWishList();
-        } catch (error) {}
+          setState(() {
+            isLoading = false;
+          });
+        } catch (error) {
+          AlertDialogs.errorDialog(
+              subtitle: error.toString(), context: context);
+        } finally {
+          setState(() {
+            isLoading = false;
+          });
+        }
       },
-      child: Icon(
-        isInWishList ? IconlyBold.heart : IconlyLight.heart,
-        size: 22,
-        color: isInWishList ? Colors.red : color,
-      ),
+      child: isLoading
+          ? const Padding(
+              padding: EdgeInsets.all(3.0),
+              child: SizedBox(
+                  height: 20, width: 20, child: CircularProgressIndicator()),
+            )
+          : Icon(
+              widget.isInWishList ? IconlyBold.heart : IconlyLight.heart,
+              size: 22,
+              color: widget.isInWishList ? Colors.red : color,
+            ),
     );
   }
 }
