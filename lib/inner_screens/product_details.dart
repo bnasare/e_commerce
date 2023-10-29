@@ -52,7 +52,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     bool? isInWishList =
         wishListProvider.getWishListItems.containsKey(getCurrentProduct.id);
     final viewedProductsProvider = Provider.of<ViewedProductsProvider>(context);
-
+    //! You can also copy this code and paste it in the navigation from your feeds items and on sale widget to product details screen.
     return WillPopScope(
       onWillPop: () async {
         viewedProductsProvider.addProductToHistory(productId: productId);

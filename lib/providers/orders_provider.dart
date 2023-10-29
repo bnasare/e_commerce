@@ -98,4 +98,9 @@ class OrdersProvider with ChangeNotifier {
     });
     notifyListeners();
   }
+
+  void clearOrders() async {
+    ordersList.clear();
+    notifyListeners();
+  }
 }

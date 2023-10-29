@@ -1,11 +1,12 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:e_commerce/fetch_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
 import 'consts/theme_data.dart';
-import 'fetch_screen.dart';
 import 'firebase_options.dart';
 import 'inner_screens/category_screen.dart';
 import 'inner_screens/feeds_screen.dart';
@@ -26,6 +27,9 @@ import 'screens/wishlist/wishlist_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =
+      'pk_test_51O6bl5APWReggQoZ8BtZ1N2MQSH1Ddo2L0iT6kVsVoqVFWdvLzrAWHrX583Hzuw8OaiNswrDumrs0qOyYSYgfZ1l00jNpfTO3i';
+  Stripe.instance.applySettings();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(
@@ -136,3 +140,69 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+// class PaymentDemo extends StatelessWidget {
+//   const PaymentDemo({Key? key}) : super(key: key);
+//   Future<void> initPayment(
+//       {required String email,
+//       required double amount,
+//       required BuildContext context}) async {
+//     try {
+//       // 1. Create a payment intent on the server
+//       final response = await http.post(
+//           Uri.parse(
+//               'https://us-central1-e-commerce1a.cloudfunctions.net/stripePaymentIntentRequest'),
+//           body: {
+//             'email': email,
+//             'amount': amount.toString(),
+//           });
+
+//       final jsonResponse = jsonDecode(response.body);
+//       log(jsonResponse.toString());
+//       // 2. Initialize the payment sheet
+//       await Stripe.instance.initPaymentSheet(
+//           paymentSheetParameters: SetupPaymentSheetParameters(
+//         paymentIntentClientSecret: jsonResponse['paymentIntent'],
+//         merchantDisplayName: 'Footwear Hub',
+//         customerId: jsonResponse['customer'],
+//         customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
+//         // testEnv: true,
+//         // merchantCountryCode: 'SG',
+//       ));
+//       await Stripe.instance.presentPaymentSheet();
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         const SnackBar(
+//           content: Text('Payment is successful'),
+//         ),
+//       );
+//     } catch (errorr) {
+//       if (errorr is StripeException) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('An error occured ${errorr.error.localizedMessage}'),
+//           ),
+//         );
+//       } else {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('An error occured $errorr'),
+//           ),
+//         );
+//       }
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//           child: ElevatedButton(
+//         child: const Text('Pay 20\$'),
+//         onPressed: () async {
+//           await initPayment(
+//               amount: 50.0, context: context, email: 'email@test.com');
+//         },
+//       )),
+//     );
+//   }
+// }

@@ -1,15 +1,22 @@
-import 'package:e_commerce/consts/dialog_box.dart';
-import 'package:e_commerce/providers/cart_provider.dart';
-import 'package:e_commerce/providers/orders_provider.dart';
-import 'package:e_commerce/providers/product_provider.dart';
-import 'package:e_commerce/screens/cart/cart_widget.dart';
-import 'package:e_commerce/services/utils.dart';
-import 'package:e_commerce/widgets/text_widget.dart';
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:e_commerce/consts/firebase_consts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import '../../consts/dialog_box.dart';
+import '../../providers/cart_provider.dart';
+import '../../providers/orders_provider.dart';
+import '../../providers/product_provider.dart';
+import '../../services/utils.dart';
 import '../../widgets/empty_screen.dart';
+import '../../widgets/text_widget.dart';
+import 'cart_widget.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -90,6 +97,16 @@ class _CartScreenState extends State<CartScreen> {
                           borderRadius: BorderRadius.circular(10),
                           child: InkWell(
                             onTap: () async {
+                              User? user = authInstance.currentUser;
+                              try {
+                                await initPayment(
+                                    email: user!.email ?? '',
+                                    amount: total * 100,
+                                    context: context);
+                              } catch (error) {
+                                print('error $error');
+                                return;
+                              }
                               await ordersProvider.placeOrder(context);
                             },
                             borderRadius: BorderRadius.circular(10),
@@ -129,5 +146,60 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
           );
+  }
+
+  Future<void> initPayment(
+      {required String email,
+      required double amount,
+      required BuildContext context}) async {
+    try {
+      // 1. Create a payment intent on the server
+      final response = await http.post(
+          Uri.parse(
+              'https://us-central1-e-commerce1a.cloudfunctions.net/stripePaymentIntentRequest'),
+          body: {
+            'email': email,
+            'amount': amount.toString(),
+          });
+
+      final jsonResponse = jsonDecode(response.body);
+      log(jsonResponse.toString());
+      if (jsonResponse['success'] == false) {
+        AlertDialogs.errorDialog(
+            subtitle: jsonResponse['error'], context: context);
+        throw jsonResponse['error'];
+      }
+      // 2. Initialize the payment sheet
+      await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+        paymentIntentClientSecret: jsonResponse['paymentIntent'],
+        merchantDisplayName: 'Footwear Hub',
+        customerId: jsonResponse['customer'],
+        customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
+        // testEnv: true,
+        // merchantCountryCode: 'SG',
+      ));
+      await Stripe.instance.presentPaymentSheet();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Payment is successful'),
+        ),
+      );
+    } catch (error) {
+      if (error is StripeException) {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('An error occured ${error.error.localizedMessage}'),
+        //   ),
+        // );
+      } else {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('An error occured $error'),
+        //   ),
+        // );
+      }
+      throw '$error';
+    }
   }
 }

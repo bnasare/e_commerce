@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
+import 'providers/orders_provider.dart';
 import 'providers/product_provider.dart';
 import 'providers/wishlist_provider.dart';
 
@@ -34,11 +35,14 @@ class _FetchScreenState extends State<FetchScreen> {
       final cartProvider = Provider.of<CartProvider>(context, listen: false);
       final wishListProvider =
           Provider.of<WishListProvider>(context, listen: false);
+      final ordersProvider =
+          Provider.of<OrdersProvider>(context, listen: false);
       final User? user = authInstance.currentUser;
       if (user == null) {
         await productProvider.fetchProducts();
         cartProvider.clearCart();
         wishListProvider.clearWishList();
+        ordersProvider.clearOrders();
       } else {
         await productProvider.fetchProducts();
         await cartProvider.fetchCart();
