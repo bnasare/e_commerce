@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/orders_provider.dart';
 import '../../services/utils.dart';
 import '../../widgets/empty_screen.dart';
 import '../../widgets/text_widget.dart';
@@ -19,52 +21,65 @@ class _OrdersScreenState extends State<OrdersScreen> {
   bool isEmpty = true;
   @override
   Widget build(BuildContext context) {
+    final ordersProvider = Provider.of<OrdersProvider>(context);
     final Color color = Utils(context).color;
-    return isEmpty
-        ? const EmptyScreen(
-            imagePath: 'assets/images/sale/emptycart.png',
-            title: 'Oops!',
-            subtitle: "Nothing Ordered Anything Yet",
-            buttonText: 'Shop Now')
-        : Scaffold(
-            appBar: AppBar(
-              leading: InkWell(
-                borderRadius: BorderRadius.circular(12),
-                onTap: () {
-                  Navigator.canPop(context) ? Navigator.pop(context) : null;
-                },
-                child: Icon(
-                  IconlyLight.arrowLeft2,
-                  color: color,
-                  size: 24,
-                ),
-              ),
-              elevation: 0,
-              centerTitle: false,
-              title: TextWidget(
-                text: 'Your orders (2)',
-                color: color,
-                textSize: 24.0,
-                isTitle: true,
-              ),
-              backgroundColor:
-                  Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-            ),
-            body: ListView.separated(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 6),
-                  child: OrderWidget(),
+    final ordersList = ordersProvider.getOrders;
+    //! You can use future builders instead of the fetch screen.
+    return FutureBuilder(
+        future: ordersProvider.fetchOrders(),
+        builder: (context, snapshot) {
+          return ordersList.isEmpty
+              ? const EmptyScreen(
+                  imagePath: 'assets/images/sale/emptycart.png',
+                  title: 'Oops!',
+                  subtitle: "Nothing Ordered Anything Yet",
+                  buttonText: 'Shop Now')
+              : Scaffold(
+                  appBar: AppBar(
+                    leading: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Navigator.canPop(context)
+                            ? Navigator.pop(context)
+                            : null;
+                      },
+                      child: Icon(
+                        IconlyLight.arrowLeft2,
+                        color: color,
+                        size: 24,
+                      ),
+                    ),
+                    elevation: 0,
+                    centerTitle: false,
+                    title: TextWidget(
+                      text: 'Your orders (${ordersList.length})',
+                      color: color,
+                      textSize: 24.0,
+                      isTitle: true,
+                    ),
+                    backgroundColor: Theme.of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.9),
+                  ),
+                  body: ListView.separated(
+                    itemCount: ordersList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 2, vertical: 6),
+                        child: ChangeNotifierProvider.value(
+                            value: ordersList[index],
+                            child: const OrderWidget()),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Divider(
+                        color: color,
+                        thickness: 1,
+                      );
+                    },
+                  ),
                 );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider(
-                  color: color,
-                  thickness: 1,
-                );
-              },
-            ),
-          );
+        });
   }
 }

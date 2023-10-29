@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/products_models.dart';
 
 class ProductProvider extends ChangeNotifier {
-  static final List<ProductModel> productsList = [];
+  static List<ProductModel> productsList = [];
   List<ProductModel> searchList = productsList;
 
   List<ProductModel> get getProducts {
@@ -20,6 +20,8 @@ class ProductProvider extends ChangeNotifier {
         .collection('products')
         .get()
         .then((QuerySnapshot productSnapshot) {
+      productsList.clear();
+
       for (var element in productSnapshot.docs) {
         productsList.insert(
           0,

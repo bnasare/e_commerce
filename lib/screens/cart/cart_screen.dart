@@ -1,13 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/consts/dialog_box.dart';
 import 'package:e_commerce/providers/cart_provider.dart';
+import 'package:e_commerce/providers/orders_provider.dart';
 import 'package:e_commerce/providers/product_provider.dart';
 import 'package:e_commerce/screens/cart/cart_widget.dart';
 import 'package:e_commerce/services/utils.dart';
 import 'package:e_commerce/widgets/text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
+import '../../consts/firebase_consts.dart';
 import '../../widgets/empty_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -23,9 +29,11 @@ class _CartScreenState extends State<CartScreen> {
     final Color color = Utils(context).color;
     Size size = Utils(context).getScreenSize;
     final cartProvider = Provider.of<CartProvider>(context);
+    final ordersProvider = Provider.of<OrdersProvider>(context);
     final cartItemsList =
         cartProvider.getCartItems.values.toList().reversed.toList();
-    final productProvider = Provider.of<ProductProvider>(context);
+    final productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
 
     double total = 0.0;
     cartProvider.getCartItems.forEach((key, value) {
@@ -86,7 +94,45 @@ class _CartScreenState extends State<CartScreen> {
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(10),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () async {
+                              User? user = authInstance.currentUser;
+                              cartProvider.getCartItems
+                                  .forEach((key, value) async {
+                                final orderId = const Uuid().v4();
+                                final getCurrProduct = productProvider
+                                    .findProdById(value.productId);
+                                try {
+                                  await FirebaseFirestore.instance
+                                      .collection('orders')
+                                      .doc(orderId)
+                                      .set({
+                                    'orderId': orderId,
+                                    'userId': user!.uid,
+                                    'productId': value.productId,
+                                    'price': (getCurrProduct.isOnSale
+                                            ? getCurrProduct.salePrice
+                                            : getCurrProduct.price) *
+                                        value.quantity,
+                                    'totalPrice': total,
+                                    'quantity': value.quantity,
+                                    'imageUrl': getCurrProduct.imageUrl,
+                                    'userName': user.displayName,
+                                    'orderDate': Timestamp.now(),
+                                  });
+                                  await cartProvider.clearCart();
+                                  ordersProvider.fetchOrders();
+                                  await Fluttertoast.showToast(
+                                    msg: "Your order has been placed",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                  );
+                                } catch (error) {
+                                  AlertDialogs.errorDialog(
+                                      subtitle: error.toString(),
+                                      context: context);
+                                } finally {}
+                              });
+                            },
                             borderRadius: BorderRadius.circular(10),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

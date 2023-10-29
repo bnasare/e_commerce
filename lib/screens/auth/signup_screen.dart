@@ -59,13 +59,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
     if (isValid) {
       _formKey.currentState!.save();
-
+      setState(() {
+        isLoading = true;
+      });
       try {
         await authInstance.createUserWithEmailAndPassword(
             email: emailTextController.text.toLowerCase().trim(),
             password: passwordTextController.text.trim());
         final User? user = authInstance.currentUser;
         final uid = user!.uid;
+        user.updateDisplayName(_fullNameController.text);
+        user.reload();
         await FirebaseFirestore.instance.collection('users').doc(uid).set({
           'id': uid,
           'name': _fullNameController.text,
