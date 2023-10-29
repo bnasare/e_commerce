@@ -1,5 +1,4 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:e_commerce/providers/orders_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +13,7 @@ import 'inner_screens/on_sale_screen.dart';
 import 'inner_screens/product_details.dart';
 import 'providers/cart_provider.dart';
 import 'providers/dark_theme_provider.dart';
+import 'providers/orders_provider.dart';
 import 'providers/product_provider.dart';
 import 'providers/viewed_products_provider.dart';
 import 'providers/wishlist_provider.dart';
@@ -30,7 +30,7 @@ void main() {
       .then((_) {
     runApp(
       DevicePreview(
-        enabled: true,
+        enabled: false,
         builder: (context) => const MyApp(),
       ),
     );

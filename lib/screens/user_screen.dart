@@ -11,6 +11,7 @@ import 'package:e_commerce/services/global_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
@@ -89,27 +90,34 @@ class _UserScreenState extends State<UserScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 15),
-              RichText(
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    const TextSpan(
-                      text: 'Hi ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    TextSpan(
-                      text: name == null ? 'user' : name!,
-                      style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ],
+              // RichText(
+              //   text: TextSpan(
+              //     style: DefaultTextStyle.of(context).style,
+              //     children: <TextSpan>[
+              //       const TextSpan(
+              //         text: 'Hi ',
+              //         style: TextStyle(
+              //           fontSize: 18,
+              //           fontWeight: FontWeight.w700,
+              //           color: Colors.blue,
+              //         ),
+              //       ),
+              //       TextSpan(
+              //         text: name == null ? 'user' : name!,
+              //         style: const TextStyle(
+              //           fontSize: 30,
+              //           fontWeight: FontWeight.w700,
+              //           color: Colors.blue,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              Text(
+                name == null ? 'user' : name!,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               Text(
@@ -147,21 +155,30 @@ class _UserScreenState extends State<UserScreen> {
                             onPressed: () async {
                               try {
                                 final User? user = authInstance.currentUser;
-                                FirebaseFirestore.instance
+                                await FirebaseFirestore.instance
+                                    .collection('users')
                                     .doc(user!.uid)
                                     .update({
                                   'shipping_address': addressTextController.text
                                 });
+                                Navigator.pop(context);
+
+                                // Update the local state
+                                setState(() {
+                                  address = addressTextController.text;
+                                });
+                                // Show a success message
+                                await Fluttertoast.showToast(
+                                  msg:
+                                      "Your address has been updated successfully",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                );
                               } catch (error) {
                                 AlertDialogs.errorDialog(
                                     subtitle: 'Update unsuccessful',
                                     context: context);
                               }
-
-                              setState(() {
-                                address = addressTextController.text;
-                              });
-                              Navigator.pop(context);
                             },
                             child: const Text('Update'),
                           ),

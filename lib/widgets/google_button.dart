@@ -1,4 +1,5 @@
-import 'package:e_commerce/screens/bottom_bar_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/fetch_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -21,18 +22,41 @@ class GoogleButton extends StatelessWidget {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+
+      // signInWithCredential returns a UserCredential object
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Now you can access the user property
+      final user = userCredential.user;
+
+      if (userCredential.additionalUserInfo!.isNewUser) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user!.uid)
+            .set({
+          'id': user.uid,
+          'name': user.displayName,
+          'email': user.email,
+          'shipping_address': '',
+          'userWishList': [],
+          'userCartItems': [],
+          'createdAt': Timestamp.now(),
+        });
+      }
+
       print("Google Sign-In successful");
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const BottomBarScreen()));
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+          MaterialPageRoute(builder: (context) => const FetchScreen()));
+      return userCredential;
     } on FirebaseException catch (error) {
       print("FirebaseException: ${error.message}");
       AlertDialogs.errorDialog(subtitle: '${error.message}', context: context);
-      return null; // Add this line to return null in case of FirebaseException.
+      return null;
     } catch (error) {
       print("Error: $error");
       AlertDialogs.errorDialog(subtitle: '$error', context: context);
-      return null; // Add this line to return null in case of other exceptions.
+      return null;
     }
   }
 

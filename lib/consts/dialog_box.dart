@@ -65,7 +65,7 @@ class AlertDialogs {
                 color: Colors.red,
                 size: 20,
               ),
-              SizedBox(width: 3),
+              SizedBox(width: 8),
               Text('An Error Occured'),
             ],
           ),

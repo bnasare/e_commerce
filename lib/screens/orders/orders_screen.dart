@@ -24,7 +24,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     final ordersProvider = Provider.of<OrdersProvider>(context);
     final Color color = Utils(context).color;
     final ordersList = ordersProvider.getOrders;
-    //! You can use future builders instead of the fetch screen.
+    // You can use future builders instead of the fetch screen.
     return FutureBuilder(
         future: ordersProvider.fetchOrders(),
         builder: (context, snapshot) {
