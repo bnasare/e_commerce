@@ -50,6 +50,8 @@ dependencies:
   cloud_firestore: ^4.9.1
   uuid: ^4.1.0
   device_preview: ^1.1.0
+  flutter_stripe: ^9.5.0+1
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -50,7 +50,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       ),
                     ),
                     elevation: 0,
-                    centerTitle: false,
+                    centerTitle: true,
                     title: TextWidget(
                       text: 'Your orders (${ordersList.length})',
                       color: color,
