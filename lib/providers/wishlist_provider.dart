@@ -36,6 +36,7 @@ class WishListProvider with ChangeNotifier {
 
     final DocumentSnapshot userDoc =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    // ignore: unnecessary_null_comparison
     if (userDoc == null) {
       return;
     }
