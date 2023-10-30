@@ -97,11 +97,13 @@ class WishListProvider with ChangeNotifier {
 
   Future<void> clearWishList() async {
     final User? user = authInstance.currentUser;
-    String uid = user!.uid;
-    await FirebaseFirestore.instance.collection('users').doc(uid).update({
-      'userWishList': [],
-    });
-    wishLishtItems.clear();
-    notifyListeners();
+    if (user != null) {
+      String uid = user.uid;
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'userWishList': [],
+      });
+      wishLishtItems.clear();
+      notifyListeners();
+    }
   }
 }

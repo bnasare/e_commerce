@@ -97,12 +97,14 @@ class CartProvider with ChangeNotifier {
 
   Future<void> clearCart() async {
     final User? user = authInstance.currentUser;
-    String uid = user!.uid;
-    await FirebaseFirestore.instance.collection('users').doc(uid).update({
-      'userCartItems': [],
-    });
-    cartItems.clear();
-    notifyListeners();
+    if (user != null) {
+      String uid = user.uid;
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'userCartItems': [],
+      });
+      cartItems.clear();
+      notifyListeners();
+    }
   }
 
   Future<void> removeOneItem(
